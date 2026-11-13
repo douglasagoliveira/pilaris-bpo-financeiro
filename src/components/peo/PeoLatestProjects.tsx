@@ -47,7 +47,7 @@ export default function PeoLatestProjects() {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 1280px)", () => {
+    mm.add("(min-width: 1199px)", () => {
       // Peo's exact Des Portfolio Pin & Stacking Animation
       gsap.set(sections, { scale: 1 });
 

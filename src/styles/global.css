@@ -264,205 +264,1136 @@
 }
 
 /*
- * Notebook layout: 14–15 inch displays commonly expose a 1024–1279px CSS viewport.
- * Keep the established mobile and wide-desktop layouts untouched and give this
- * intermediate range its own density so each visual block fits the viewport.
+ * Notebook layout (14" and 15" displays: 1024px–1600px CSS viewport, e.g. 1280×720,
+ * 1366×768, 1440×900, 1536×864, 1600×900).
+ * Keeps mobile (<1024px) and desktop PC (>1600px) 100% untouched while standardizing
+ * typography, containers, paddings, cards, and fold heights for notebook viewports.
  */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .site-header > div > div {
-    height: 68px;
+@media (min-width: 1024px) and (max-width: 1600px) {
+  /* ----------------------------------------------------------------
+   * 1. Global Containers, Header, Buttons & Floating Widget
+   * ---------------------------------------------------------------- */
+  .max-w-\[1200px\],
+  .max-w-\[1240px\] {
+    max-width: 1080px !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  .site-header .h-\[76px\] {
+    height: 60px !important;
+  }
+
+  .site-header a[aria-label="Pilaris BPO Página Inicial"] img {
+    height: 32px !important;
   }
 
   .site-header nav {
-    gap: 1.25rem;
+    gap: 1.35rem !important;
   }
 
-  .site-header .max-w-\[1200px\] {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .site-header nav a {
+    font-size: 13px !important;
   }
 
+  .site-header .h-\[76px\] > div:last-child > a {
+    padding: 0.45rem 1rem !important;
+    font-size: 12px !important;
+  }
+
+  .peo-btn {
+    font-size: 13.5px;
+    padding: 4px;
+  }
+
+  .peo-btn .btn_inner {
+    padding: 10px 22px 10px 44px;
+  }
+
+  .peo-btn .btn_inner::before,
+  .peo-btn .btn_icon {
+    width: 36px;
+  }
+
+  [data-floating-whatsapp] {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    gap: 0.5rem !important;
+  }
+
+  [data-floating-whatsapp] > a {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  [data-floating-whatsapp] > a svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  [data-whatsapp-tip] {
+    padding: 0.5rem 0.65rem !important;
+    font-size: 11px !important;
+    max-width: 195px !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 2. Home — Dobra 01: Hero (.home-hero) & Glass Bar (.home-activities-bar)
+   * ---------------------------------------------------------------- */
   .home-hero {
-    min-height: min(720px, 100svh) !important;
-    padding: 104px 0 36px !important;
+    min-height: clamp(470px, calc(100svh - 56px), 620px) !important;
+    padding: 82px 0 28px !important;
   }
 
   .home-hero .grid {
-    gap: 2rem;
+    gap: 1.5rem !important;
+  }
+
+  .home-hero [data-hero-up]:first-child {
+    font-size: 11.5px !important;
+  }
+
+  .home-hero [data-hero-up]:first-child > span {
+    height: 20px !important;
+    line-height: 20px !important;
+    padding: 0 8px !important;
   }
 
   .home-hero h1 {
-    max-width: 560px;
-    font-size: 54px !important;
-    line-height: 1.05 !important;
-    letter-spacing: -1.5px;
+    max-width: 470px !important;
+    margin-top: 14px !important;
+    font-size: 40px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -1.25px !important;
   }
 
-  .home-hero [data-hero-up] {
-    margin-top: 20px;
+  .home-hero p[data-hero-up].text-\[18px\] {
+    margin-top: 14px !important;
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    max-width: 440px !important;
+  }
+
+  .home-hero div[data-hero-up] {
+    margin-top: 18px !important;
   }
 
   .home-hero .hero-info {
-    margin-top: 28px !important;
+    display: none !important;
   }
 
-  .inner-page-hero {
-    min-height: 430px !important;
-    padding-top: 96px !important;
-    padding-bottom: 40px !important;
+  .home-hero .hero-image {
+    min-height: 260px !important;
   }
 
-  .inner-page-hero h1 {
-    max-width: 620px;
-    margin-top: 1.25rem;
-    font-size: 54px !important;
-    line-height: 1.06 !important;
-    letter-spacing: -1.5px;
+  .home-hero .hero-image > div:first-child {
+    top: 62% !important;
+    left: 6% !important;
   }
 
-  .inner-page-hero > div.relative {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .home-hero .hero-image > div:last-child {
+    bottom: 52% !important;
+    right: 2% !important;
   }
 
-  .home-solutions-section,
-  .home-why-section {
-    padding-top: 72px !important;
-    padding-bottom: 72px !important;
+  .home-hero [data-hero-box] > div {
+    padding: 0.65rem 0.9rem !important;
+    gap: 0.65rem !important;
+    border-radius: 0.85rem !important;
+  }
+
+  .home-hero [data-hero-box] > div > span {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .home-hero [data-hero-box] .text-\[15px\] {
+    font-size: 13.5px !important;
+  }
+
+  .home-activities-bar {
+    padding-top: 1.25rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-activities-bar > div {
+    padding: 0.75rem 1rem !important;
+    border-radius: 22px !important;
+  }
+
+  .home-activities-bar .group {
+    padding: 0.5rem 0.75rem !important;
+    gap: 0.65rem !important;
+  }
+
+  .home-activities-bar .w-12.h-12 {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+  }
+
+  .home-activities-bar .w-12.h-12 svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .home-activities-bar h2 {
+    font-size: 13.5px !important;
+  }
+
+  .home-activities-bar p {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 3. Home — Dobra 02: Nossas Soluções (.home-solutions-section)
+   *    (Entire fold — header + 4 cards — fits comfortably in viewport)
+   * ---------------------------------------------------------------- */
+  .home-solutions-section {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
   }
 
   .home-solutions-section .relative.text-center {
-    margin-bottom: 40px;
+    margin-bottom: 18px !important;
   }
 
-  .home-solutions-section .relative.text-center h2,
-  .home-why-section h2 {
-    font-size: 40px !important;
+  .home-solutions-section .relative.text-center > div.inline-flex {
+    margin-bottom: 6px !important;
+    font-size: 11px !important;
+  }
+
+  .home-solutions-section .relative.text-center h2 {
+    font-size: 30px !important;
+    line-height: 1.14 !important;
   }
 
   .home-solutions-section .advance-wrap {
-    gap: 1rem;
+    gap: 0.875rem !important;
   }
 
   .home-solutions-section .service-card-item {
-    min-height: 280px;
-    padding: 1.5rem;
+    min-height: 0 !important;
+    padding: 1.1rem 1rem !important;
+    border-radius: 1rem !important;
   }
 
   .home-solutions-section .service-card-item > div > div:first-child {
-    width: 58px;
-    height: 56px;
-    margin-bottom: 1.25rem;
+    width: 42px !important;
+    height: 40px !important;
+    margin-bottom: 0.75rem !important;
+    border-radius: 0.65rem !important;
+  }
+
+  .home-solutions-section .service-card-item > div > div:first-child svg {
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .home-solutions-section .service-card-item h3 {
-    font-size: 19px;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .home-solutions-section .service-card-item p {
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
+  }
+
+  .home-solutions-section .service-card-item .mt-5.pt-4 {
+    margin-top: 0.65rem !important;
+    padding-top: 0.55rem !important;
+    gap: 0.25rem !important;
+  }
+
+  .home-solutions-section .service-card-item .mt-5.pt-4 > div {
+    font-size: 11.5px !important;
+    line-height: 1.3 !important;
+  }
+
+  .home-solutions-section .service-card-item > div:last-child {
+    margin-top: 0.65rem !important;
+    padding-top: 0.5rem !important;
+    font-size: 11px !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 4. Home — Dobra 03: Sobre a Pilaris (.home-about-section)
+   * ---------------------------------------------------------------- */
+  .home-about-section {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .home-about-section > div {
+    padding: 1.75rem 2rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .home-about-section .grid.lg\:grid-cols-12 {
+    gap: 2rem !important;
+  }
+
+  .home-about-section .lg\:col-span-5 img.aspect-\[4\/3\] {
+    aspect-ratio: 4 / 3.2 !important;
+    max-height: 330px !important;
+  }
+
+  .home-about-section .lg\:col-span-7 {
+    gap: 1rem !important;
+  }
+
+  .home-about-section .lg\:col-span-7 > * + * {
+    margin-top: 1rem !important;
+  }
+
+  .home-about-section h2 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  .home-about-section .grid.sm\:grid-cols-2 {
+    padding-top: 0.75rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .home-about-section .grid.sm\:grid-cols-2 > div {
+    padding: 0.875rem 1rem !important;
+  }
+
+  .home-about-section .grid.sm\:grid-cols-2 .text-3xl {
+    font-size: 24px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .home-about-section .grid.sm\:grid-cols-2 p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 5. Home — Dobra 04: Por que escolher a Pilaris (.home-why-section)
+   * ---------------------------------------------------------------- */
+  .home-why-section {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+
+  .home-why-section .mb-14 {
+    margin-bottom: 1.35rem !important;
+  }
+
+  .home-why-section h2 {
+    font-size: 30px !important;
+    line-height: 1.14 !important;
+  }
+
+  .home-why-section .mb-14 p {
+    margin-top: 0.5rem !important;
+    font-size: 14.5px !important;
   }
 
   .home-why-section .grid {
-    gap: 1rem;
+    gap: 0.875rem !important;
   }
 
   .home-why-section .grid > a {
-    padding: 1.5rem;
+    padding: 1.25rem 1.15rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .home-why-section .grid > a span.font-mono {
+    margin-bottom: 0.75rem !important;
+    font-size: 12px !important;
   }
 
   .home-why-section .grid > a h3 {
-    font-size: 20px;
+    font-size: 17.5px !important;
+    margin-bottom: 0.5rem !important;
   }
 
+  .home-why-section .grid > a p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 6. Home — Dobra 05: Nossos Pilares (.tp-project-5-2-area)
+   * ---------------------------------------------------------------- */
   .tp-project-5-2-area {
-    padding-top: 64px !important;
-    padding-bottom: 64px !important;
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  .tp-project-5-2-area > div:first-child {
+    padding-bottom: 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .tp-project-5-2-area .animate-peo-marquee > div {
+    font-size: 28px !important;
+    gap: 1.25rem !important;
+  }
+
+  .tp-project-5-2-area .animate-peo-marquee img {
+    height: 28px !important;
   }
 
   .tp-project-5-2-area .des-portfolio-wrap {
-    gap: 2.5rem;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .tp-project-5-2-area .des-portfolio-wrap > * + * {
+    margin-top: 2.5rem !important;
   }
 
   .tp-project-5-2-area .project-box-items > div {
-    min-height: 420px;
+    min-height: 340px !important;
+    max-height: 360px !important;
   }
 
   .tp-project-5-2-area .project-box-items > div > div:first-child {
-    padding: 2.5rem;
+    padding: 1.5rem 2rem !important;
+  }
+
+  .tp-project-5-2-area .project-box-items > div > div:first-child > div.font-mono {
+    font-size: 110px !important;
+    bottom: -24px !important;
+  }
+
+  .tp-project-5-2-area .project-box-items > div > div:first-child > div.mb-6 {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .tp-project-5-2-area .project-box-items > div > div:first-child > div.my-auto {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
   }
 
   .tp-project-5-2-area .project-box-items h3 {
-    font-size: 36px;
+    font-size: 26px !important;
+    line-height: 1.15 !important;
   }
 
-  .solutions-list-section,
-  .solutions-process-section,
-  .solutions-audience-section,
-  .solutions-form-section,
-  .contact-info-section,
-  .contact-form-section {
-    padding-top: 72px !important;
-    padding-bottom: 72px !important;
+  .tp-project-5-2-area .project-box-items p {
+    margin-top: 0.5rem !important;
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
   }
 
-  .solutions-grid {
-    gap: 1.25rem;
+  .tp-project-5-2-area .project-box-items > div > div:first-child > div:last-child {
+    padding-top: 0.75rem !important;
   }
 
-  .solutions-grid > div {
-    padding: 1.5rem;
+  .tp-project-5-2-area .project-box-items .w-14.h-14 {
+    width: 42px !important;
+    height: 42px !important;
   }
 
-  .solutions-grid h2 {
-    font-size: 20px;
+  .tp-project-5-2-area .project-box-items .w-14.h-14 svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 
-  .solutions-process-section .grid > article,
-  .contact-info-section .grid > div {
-    padding: 1.5rem;
+  .tp-project-5-2-area .project-box-items > div > div:last-child {
+    min-height: 340px !important;
+    max-height: 360px !important;
   }
 
-  .solutions-process-section .grid,
-  .contact-info-section .grid {
-    gap: 1rem;
+  /* ----------------------------------------------------------------
+   * 7. Home — Dobra 06: Como Trabalhamos (.home-process-section)
+   * ---------------------------------------------------------------- */
+  .home-process-section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
   }
 
-  .solutions-audience-section .grid > article {
-    padding: 1.5rem;
+  .home-process-section .grid {
+    gap: 2rem !important;
   }
 
-  .solutions-audience-section .grid > article h3 {
-    font-size: 26px;
+  .home-process-section .lg\:col-span-6:first-child img {
+    max-height: 350px !important;
+    width: 100% !important;
+    object-fit: cover !important;
   }
 
-  .solutions-form-section form,
-  .contact-form-section form {
-    gap: 1rem;
+  .home-process-section .lg\:col-span-6.space-y-8 > * + * {
+    margin-top: 1rem !important;
   }
 
-  .about-intro,
-  .about-purpose,
-  .about-care {
-    padding-top: 72px !important;
-    padding-bottom: 72px !important;
+  .home-process-section h2 {
+    font-size: 30px !important;
+    line-height: 1.14 !important;
   }
 
-  .about-intro h2,
-  .about-purpose h2,
-  .about-care h2 {
-    font-size: 48px !important;
+  .home-process-section .space-y-4 > * + * {
+    margin-top: 0.55rem !important;
+  }
+
+  .home-process-section details summary {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .home-process-section details summary h3 {
+    font-size: 15.5px !important;
+  }
+
+  .home-process-section details summary > span:last-child {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .home-process-section details > div {
+    padding: 0.5rem 1rem 0.75rem !important;
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 8. Home — Dobra 07 & 08: Marquee & Conteúdo/Blog (.home-news-section)
+   * ---------------------------------------------------------------- */
+  .peo-marquee-band {
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
+  }
+
+  .peo-marquee-band span.text-2xl {
+    font-size: 18px !important;
+  }
+
+  .peo-marquee-band img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .home-news-section {
+    padding-top: 26px !important;
+    padding-bottom: 26px !important;
+  }
+
+  .home-news-section .text-center.mb-16 {
+    margin-bottom: 1rem !important;
+  }
+
+  .home-news-section .text-center.mb-16 > div.inline-flex {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .home-news-section h2 {
+    font-size: 28px !important;
+    line-height: 1.14 !important;
+  }
+
+  .home-news-section .grid {
+    gap: 1.15rem !important;
+  }
+
+  .home-news-section .grid > a {
+    border-radius: 1rem !important;
+  }
+
+  .home-news-section .aspect-\[16\/10\] {
+    aspect-ratio: 16 / 8.2 !important;
+    max-height: 140px !important;
+  }
+
+  .home-news-section .p-6.lg\:p-7 {
+    padding: 0.85rem 1rem 0.5rem !important;
+  }
+
+  .home-news-section .p-6.lg\:p-7 > * + * {
+    margin-top: 0.35rem !important;
+  }
+
+  .home-news-section .grid h3 {
+    font-size: 15.5px !important;
+    line-height: 1.28 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .home-news-section .grid p {
+    font-size: 12.5px !important;
+    line-height: 1.4 !important;
+  }
+
+  .home-news-section .px-6.lg\:px-7.pb-6 {
+    padding: 0.25rem 1rem 0.75rem !important;
+  }
+
+  .home-news-section .px-6.lg\:px-7.pb-6 > div {
+    padding-top: 0.5rem !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 9. Home — Dobra 09: Newsletter CTA (.home-cta-section) & Footer
+   * ---------------------------------------------------------------- */
+  .home-cta-section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .home-cta-section h2 {
+    font-size: 30px !important;
+    line-height: 1.15 !important;
+  }
+
+  .home-cta-section p {
+    font-size: 14px !important;
+  }
+
+  .site-footer {
+    padding-top: 44px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .site-footer > div > div:first-child {
+    padding-bottom: 2rem !important;
+  }
+
+  .site-footer > div > div:nth-child(2) {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 10. Inner Page Hero (.inner-page-hero)
+   * ---------------------------------------------------------------- */
+  .inner-page-hero {
+    min-height: 310px !important;
+    padding-top: 84px !important;
+    padding-bottom: 34px !important;
+  }
+
+  .inner-page-hero h1 {
+    max-width: 560px !important;
+    margin-top: 0.85rem !important;
+    font-size: 38px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -1.25px !important;
+  }
+
+  .inner-page-hero p.mt-5 {
+    margin-top: 0.75rem !important;
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    max-width: 540px !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 11. Página Sobre (/conheca-a-pilaris)
+   * ---------------------------------------------------------------- */
+  .about-intro {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .about-intro .grid {
+    row-gap: 1rem !important;
+    column-gap: 2rem !important;
+  }
+
+  .about-intro h2 {
+    margin-top: 0.65rem !important;
+    font-size: 34px !important;
+    line-height: 1.1 !important;
   }
 
   .about-intro .lg\:mt-16 {
-    margin-top: 2rem;
+    margin-top: 0.5rem !important;
+  }
+
+  .about-intro [data-frame] {
+    aspect-ratio: 4 / 3.7 !important;
+    max-height: 350px !important;
+  }
+
+  .about-intro [data-chip] {
+    padding: 0.35rem 0.75rem 0.35rem 0.4rem !important;
+    font-size: 11px !important;
+  }
+
+  .about-intro .lg\:col-span-5.lg\:col-start-2 p:first-of-type {
+    font-size: 15.5px !important;
+    line-height: 1.48 !important;
+  }
+
+  .about-intro .lg\:col-span-5.lg\:col-start-2 p.mt-6 {
+    margin-top: 0.75rem !important;
+    font-size: 13.5px !important;
+    line-height: 1.48 !important;
+  }
+
+  .about-intro .mt-9 {
+    margin-top: 1.15rem !important;
+  }
+
+  .about-stats {
+    padding-bottom: 40px !important;
+  }
+
+  .about-stats ul {
+    gap: 0.875rem !important;
+  }
+
+  .about-stats .group {
+    padding: 1.25rem !important;
+  }
+
+  .about-stats .mt-8 {
+    margin-top: 1rem !important;
+  }
+
+  .about-stats .text-\[52px\] {
+    font-size: 38px !important;
+  }
+
+  .about-stats .mt-6 {
+    margin-top: 0.75rem !important;
+    font-size: 13px !important;
+  }
+
+  .about-purpose {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .about-purpose h2 {
+    margin-top: 0.65rem !important;
+    font-size: 32px !important;
+    line-height: 1.1 !important;
+  }
+
+  .about-purpose p.sm\:text-lg {
+    font-size: 14.5px !important;
   }
 
   .about-purpose .mt-16 {
-    margin-top: 3rem;
+    margin-top: 1.75rem !important;
+    padding-top: 1.25rem !important;
+  }
+
+  .about-purpose .text-2xl.lg\:text-\[28px\] {
+    margin-top: 0.65rem !important;
+    font-size: 18px !important;
+    line-height: 1.35 !important;
+  }
+
+  .about-purpose [data-pillars] {
+    margin-top: 1.25rem !important;
+    gap: 0.875rem !important;
+  }
+
+  .about-purpose .about-pillar {
+    --about-pillar-slant: 24px !important;
+    min-height: calc(210px + var(--about-pillar-index, 0) * 22px) !important;
+    padding: calc(var(--about-pillar-slant) + 14px) 16px 16px !important;
+    gap: 1.25rem !important;
+  }
+
+  .about-purpose .about-pillar h4 {
+    font-size: 20px !important;
+  }
+
+  .about-purpose .about-pillar p {
+    font-size: 13px !important;
+    line-height: 1.42 !important;
+    min-height: 74px !important;
+  }
+
+  .about-purpose .mt-12 {
+    margin-top: 1.5rem !important;
+  }
+
+  .about-care {
+    padding-top: 38px !important;
+    padding-bottom: 38px !important;
+  }
+
+  .about-care h2 {
+    margin-top: 0.65rem !important;
+    font-size: 32px !important;
+    line-height: 1.1 !important;
+  }
+
+  .about-care p.mt-6 {
+    margin-top: 0.85rem !important;
+    font-size: 14.5px !important;
   }
 
   .about-care [data-front] {
-    padding: 2rem 2rem 8rem;
+    padding: 1.5rem 1.5rem 6.25rem !important;
   }
 
   .about-care [data-front] h3 {
-    font-size: 26px;
+    margin-top: 1.15rem !important;
+    font-size: 21px !important;
+  }
+
+  .about-care [data-front] p {
+    margin-top: 0.6rem !important;
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+  }
+
+  .about-care [data-front-pillar] {
+    width: 6rem !important;
+    top: calc(100% - 5.25rem) !important;
+  }
+
+  .about-faq-section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .about-faq-section h2 {
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+  }
+
+  .about-faq-section summary {
+    padding-top: 0.9rem !important;
+    padding-bottom: 0.9rem !important;
+  }
+
+  .about-faq-section summary h3 {
+    font-size: 16.5px !important;
+  }
+
+  .about-faq-section details p {
+    padding-bottom: 1rem !important;
+    font-size: 14px !important;
+  }
+
+  .about-closing {
+    padding-top: 44px !important;
+    padding-bottom: 44px !important;
+  }
+
+  .about-closing h2 {
+    font-size: 40px !important;
+    line-height: 1.06 !important;
+  }
+
+  .about-closing p {
+    margin-top: 1rem !important;
+    font-size: 15.5px !important;
+  }
+
+  .about-closing .mt-10 {
+    margin-top: 1.5rem !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 12. Página Nossas Soluções (/nossas-solucoes)
+   * ---------------------------------------------------------------- */
+  .solutions-list-section,
+  .solutions-process-section,
+  .solutions-audience-section,
+  .solutions-form-section {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+
+  .solutions-grid {
+    gap: 1rem !important;
+  }
+
+  .solutions-grid > div {
+    padding: 1.2rem 1.25rem !important;
+    border-radius: 1.15rem !important;
+  }
+
+  .solutions-grid > div span.mb-4 {
+    margin-bottom: 0.4rem !important;
+    font-size: 12px !important;
+  }
+
+  .solutions-grid h2 {
+    font-size: 17.5px !important;
+    margin-bottom: 0.45rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .solutions-grid p {
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .solutions-grid > div > div > div.pt-4 {
+    padding-top: 0.6rem !important;
+  }
+
+  .solutions-process-section .mb-12,
+  .solutions-audience-section .mb-12 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .solutions-process-section h2,
+  .solutions-audience-section h2 {
+    font-size: 30px !important;
+    line-height: 1.14 !important;
+  }
+
+  .solutions-process-section .mb-12 p {
+    margin-top: 0.5rem !important;
+    font-size: 14px !important;
+  }
+
+  .solutions-process-section .grid {
+    gap: 0.875rem !important;
+  }
+
+  .solutions-process-section .grid > article {
+    padding: 1.15rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .solutions-process-section .grid > article h3 {
+    margin-top: 0.85rem !important;
+    font-size: 17px !important;
+  }
+
+  .solutions-process-section .grid > article p {
+    margin-top: 0.5rem !important;
+    padding-top: 0.65rem !important;
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
+  }
+
+  .solutions-process-section .mt-10 {
+    margin-top: 1.25rem !important;
+  }
+
+  .solutions-audience-section .grid {
+    gap: 1.15rem !important;
+  }
+
+  .solutions-audience-section .grid > article {
+    padding: 1.35rem 1.5rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .solutions-audience-section .grid > article > div.mb-8 {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .solutions-audience-section .grid > article h3 {
+    font-size: 20px !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .solutions-audience-section .grid > article .space-y-5 > * + * {
+    margin-top: 0.65rem !important;
+    padding-top: 0.65rem !important;
+  }
+
+  .solutions-audience-section .grid > article p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  .solutions-audience-section .mt-12 {
+    margin-top: 1.25rem !important;
+  }
+
+  .solutions-form-section > div > div {
+    padding: 1.75rem 2.25rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .solutions-form-section .mb-10 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .solutions-form-section h2 {
+    font-size: 26px !important;
+  }
+
+  .solutions-form-section form {
+    gap: 0.75rem !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 13. Página Contato (/contato)
+   * ---------------------------------------------------------------- */
+  .contact-info-section,
+  .contact-form-section {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  .contact-info-section .mb-16 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .contact-info-section h2 {
+    font-size: 30px !important;
+  }
+
+  .contact-info-section .grid {
+    gap: 1rem !important;
+  }
+
+  .contact-info-section .grid > div {
+    padding: 1.25rem 1.5rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .contact-info-section .grid > div .mb-6 {
+    margin-bottom: 0.75rem !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .contact-info-section .grid > div h3 {
+    font-size: 17px !important;
+  }
+
+  .contact-form-section .grid.lg\:grid-cols-12 {
+    gap: 1.5rem !important;
+  }
+
+  .contact-form-section .lg\:col-span-7 {
+    padding: 1.5rem 2rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .contact-form-section .lg\:col-span-7 .mb-8 {
+    margin-bottom: 1rem !important;
+  }
+
+  .contact-form-section .lg\:col-span-7 h2 {
+    font-size: 24px !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 14. Página Diagnóstico (/diagnostico)
+   * ---------------------------------------------------------------- */
+  .diagnostic-hero {
+    padding-top: 84px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .diagnostic-hero h1 {
+    font-size: 38px !important;
+    line-height: 1.06 !important;
+  }
+
+  .diagnostic-hero p {
+    font-size: 15px !important;
+  }
+
+  .diagnostic-quiz-section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .diagnostic-quiz-section .mb-12 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .diagnostic-quiz-section h2 {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+  }
+
+  .diagnostic-quiz-section > div > div:last-child {
+    padding: 1.35rem 1.75rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  .diagnostic-quiz-section > div > div:last-child h3 {
+    font-size: 18px !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .diagnostic-quiz-section > div > div:last-child .space-y-3 > button {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .diagnostic-quiz-section > div > div:last-child .space-y-3 > button .text-base {
+    font-size: 14.5px !important;
+  }
+
+  .diagnostic-benefits-section {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  .diagnostic-benefits-section .grid {
+    gap: 1rem !important;
+  }
+
+  .diagnostic-benefits-section .grid > div {
+    padding: 1.35rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  /* ----------------------------------------------------------------
+   * 15. Página Blog (/blog & /blog/[slug])
+   * ---------------------------------------------------------------- */
+  .blog-hero {
+    padding-top: 84px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .blog-hero h1 {
+    font-size: 36px !important;
+    line-height: 1.08 !important;
+  }
+
+  .blog-hero p {
+    font-size: 15px !important;
+  }
+
+  .blog-listing-section {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  .blog-listing-section [data-blog-featured] .md\:min-h-\[360px\] {
+    min-height: 260px !important;
+  }
+
+  .blog-listing-section [data-blog-featured] .p-7 {
+    padding: 1.35rem 1.5rem !important;
+  }
+
+  .blog-listing-section [data-blog-featured] h2 {
+    font-size: 24px !important;
+  }
+
+  .blog-article {
+    padding-bottom: 48px !important;
+  }
+
+  .blog-article-header {
+    padding-top: 100px !important;
+    padding-bottom: 36px !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .blog-article-header h1 {
+    font-size: 34px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .blog-article-header p {
+    font-size: 15.5px !important;
+  }
+
+  .blog-article-body .text-lg.sm\:text-xl {
+    font-size: 16px !important;
+    line-height: 1.65 !important;
   }
 }

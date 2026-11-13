@@ -68,7 +68,7 @@ export default function AboutIntro({ content, cta, video }: AboutIntroProps) {
       /* Label, paragraphs and button fade up, in groups */
       gsap.set(q("[data-fade]"), { y: 28, autoAlpha: 0 });
       ScrollTrigger.batch(q("[data-fade]"), {
-        start: "top 90%",
+        start: "top 96%",
         once: true,
         onEnter: (batch) => {
           gsap.to(batch, {
@@ -125,8 +125,8 @@ export default function AboutIntro({ content, cta, video }: AboutIntroProps) {
       const organize = gsap.timeline({
         scrollTrigger: {
           trigger: frame,
-          start: "top 60%",
-          end: "top 12%",
+          start: "top 75%",
+          end: "top 22%",
           scrub: 0.8,
         },
       });

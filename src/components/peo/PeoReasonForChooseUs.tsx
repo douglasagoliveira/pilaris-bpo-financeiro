@@ -54,48 +54,59 @@ export default function PeoReasonForChooseUs() {
     // Responsive GSAP ScrollTrigger matchMedia
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 992px) and (max-width: 1023px), (min-width: 1280px)", () => {
-      // The cards start in the tilted fanned-out deck position from the reference screenshot
-      // and as you scroll down through the section, they smoothly rotate and translate into the upright vertical 4-column row!
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrap,
-          start: "top 85%",
-          end: "top 28%",
-          scrub: 1.2,
-          markers: false,
-        },
-      });
+    mm.add(
+      {
+        notebook: "(min-width: 1024px) and (max-width: 1600px)",
+        desktop: "(min-width: 992px) and (max-width: 1023px), (min-width: 1601px)",
+      },
+      (context) => {
+        const { notebook } = context.conditions as {
+          notebook: boolean;
+          desktop: boolean;
+        };
 
-      // Tilted fanned-out initial state matching Peo's exact geometry and screenshot 1:
-      // Card 0: tilted left, shifted right
-      // Card 1: tilted slightly right, shifted right
-      // Card 2: tilted slightly left, prominent in front
-      // Card 3: tilted right, shifted left
-      tl.fromTo(
-        items[0],
-        { xPercent: 95, yPercent: 12, rotate: -8.5 },
-        { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
-      )
-        .fromTo(
-          items[1],
-          { xPercent: 32, yPercent: 4, rotate: 4.13 },
+        // The cards start in the tilted fanned-out deck position from the reference screenshot
+        // and as you scroll down through the section, they smoothly rotate and translate into the upright vertical 4-column row!
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrap,
+            start: notebook ? "top 92%" : "top 85%",
+            end: notebook ? "top 52%" : "top 28%",
+            scrub: 1.2,
+            markers: false,
+          },
+        });
+
+        // Tilted fanned-out initial state matching Peo's exact geometry and screenshot 1:
+        // Card 0: tilted left, shifted right
+        // Card 1: tilted slightly right, shifted right
+        // Card 2: tilted slightly left, prominent in front
+        // Card 3: tilted right, shifted left
+        tl.fromTo(
+          items[0],
+          { xPercent: 95, yPercent: 12, rotate: -8.5 },
           { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
-          "<",
         )
-        .fromTo(
-          items[2],
-          { xPercent: -30, yPercent: 0, rotate: -6.42 },
-          { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
-          "<",
-        )
-        .fromTo(
-          items[3],
-          { xPercent: -90, yPercent: 8, rotate: 12.15 },
-          { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
-          "<",
-        );
-    });
+          .fromTo(
+            items[1],
+            { xPercent: 32, yPercent: 4, rotate: 4.13 },
+            { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
+            "<",
+          )
+          .fromTo(
+            items[2],
+            { xPercent: -30, yPercent: 0, rotate: -6.42 },
+            { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
+            "<",
+          )
+          .fromTo(
+            items[3],
+            { xPercent: -90, yPercent: 8, rotate: 12.15 },
+            { xPercent: 0, yPercent: 0, rotate: 0, ease: "power1.out" },
+            "<",
+          );
+      },
+    );
 
     return () => {
       mm.revert();
