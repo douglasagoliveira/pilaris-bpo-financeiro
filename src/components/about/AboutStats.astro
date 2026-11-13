@@ -1,0 +1,55 @@
+---
+import type { AboutStat } from '../../data/about';
+
+interface Props {
+  /** Name of the group, announced by assistive technology. */
+  label: string;
+  items: AboutStat[];
+}
+
+const { label, items } = Astro.props;
+---
+
+<section aria-label={label} class="bg-[#FAFDFD] pb-20 lg:pb-28">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+      {items.map((item, index) => (
+        <li data-reveal style={`--reveal-order: ${index}`}>
+          {/* Card: pale blue at rest, primary blue under the pointer */}
+          <div class="group h-full rounded-2xl bg-[#E9EBFF] p-7 lg:p-8 transition-[background-color,translate] duration-300 hover:-translate-y-1.5 hover:bg-[#055ED3]">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-[#055ED3] transition-colors duration-300 group-hover:text-[#E9EBFF]">
+              {item.label}
+            </p>
+
+            <p class="mt-8 font-mono font-medium leading-none tracking-[-0.04em] text-[#021A39] transition-colors duration-300 group-hover:text-[#FAFDFD]">
+              <span class="sr-only">{`${item.prefix ?? ''}${item.value}${item.suffix}`}</span>
+              <span class="flex items-baseline" aria-hidden="true">
+                {item.prefix && <span class="text-[52px] lg:text-[60px]">{item.prefix}</span>}
+                {/* The width is reserved for the final number: counting up moves nothing around */}
+                <span
+                  data-count-to={item.value}
+                  class="inline-block text-[52px] lg:text-[60px]"
+                  style={`min-width: ${String(item.value).length}ch`}
+                >
+                  {item.value}
+                </span>
+                <span class="ml-1.5 text-xl lg:text-2xl tracking-normal text-[#055ED3] transition-colors duration-300 group-hover:text-[#E9EBFF]">
+                  {item.suffix.trim()}
+                </span>
+              </span>
+            </p>
+
+            <p class="mt-6 text-[15px] leading-relaxed text-[#021A39]/75 transition-colors duration-300 group-hover:text-[#FAFDFD]">
+              {item.text}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/count-up';
+  import '../../scripts/reveal';
+</script>

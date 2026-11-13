@@ -1,0 +1,72 @@
+---
+import { site } from '../../data/site';
+import { ArrowUpRight, MessageSquare, ShieldCheck } from 'lucide-react';
+
+interface Props {
+  /** When set, shows the secondary button pointing to this URL. */
+  contactHref?: string;
+}
+
+const { contactHref } = Astro.props;
+---
+
+<section class="relative overflow-hidden py-24 lg:py-32 bg-[#055ED3] text-white">
+  {/* Daylight wave pattern decoration */}
+  <img
+    src="/brand/pattern-waves.svg"
+    alt=""
+    aria-hidden="true"
+    class="absolute -right-20 -top-24 w-[56vw] min-w-[500px] opacity-15 pointer-events-none select-none"
+  />
+  <img
+    src="/brand/symbol-white.svg"
+    alt=""
+    aria-hidden="true"
+    class="absolute -left-20 -bottom-20 w-[350px] opacity-10 pointer-events-none select-none"
+  />
+
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
+    <div class="max-w-3xl space-y-6">
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-[-0.05em] leading-[1.02] text-white">
+        Pronto para ter previsibilidade e paz com as finanças da sua empresa?
+      </h2>
+
+      <p class="text-base sm:text-xl text-blue-100 leading-relaxed font-normal max-w-2xl">
+        Converse diretamente com Leandro e Leandra. Descubra como estruturar uma tesouraria sem falhas operacionais, com pagamentos em dia e foco total em crescimento.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 pt-4">
+        <a
+          href={site.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-[#021A39] text-[#021A39] hover:text-white font-extrabold text-base transition-all duration-300 shadow-2xl hover:-translate-y-0.5 group"
+        >
+          <MessageSquare className="w-5 h-5 text-[#055ED3] group-hover:text-white transition-colors" />
+          <span>Falar agora com um diretor</span>
+          <ArrowUpRight className="w-5 h-5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+        </a>
+
+        {contactHref && (
+          <a
+            href={contactHref}
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-white/40 hover:border-white text-white hover:bg-white/10 font-bold text-base transition-all cursor-pointer"
+          >
+            <span>Solicitar diagnóstico sem compromisso</span>
+          </a>
+        )}
+      </div>
+
+      <div class="pt-4 flex items-center gap-6 text-xs font-mono-code text-blue-200">
+        <span class="flex items-center gap-1.5">
+          <ShieldCheck className="w-4 h-4 text-white" />
+          Diagnóstico inicial 100% gratuito
+        </span>
+        <span>•</span>
+        <span>Sem fidelidade obrigatória</span>
+        <span>•</span>
+        <span>Resposta em até 24h</span>
+      </div>
+    </div>
+  </div>
+</section>

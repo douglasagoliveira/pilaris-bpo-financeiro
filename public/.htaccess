@@ -1,0 +1,113 @@
+# ------------------------------------------------------------------------------
+# Pilaris BPO Financeiro — Apache / cPanel
+# Este arquivo é copiado para a raiz do site no build (dist/.htaccess).
+# Envie o CONTEÚDO da pasta dist/ para a pasta pública do domínio (public_html).
+# ------------------------------------------------------------------------------
+
+AddDefaultCharset utf-8
+Options -Indexes -MultiViews
+
+# Página de erro do próprio site
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # /blog é uma página (blog.html) e também uma pasta (os artigos). Sem esta linha
+  # o Apache redirecionaria /blog para /blog/.
+  DirectorySlash Off
+
+  # --- HTTPS e domínio único (opcional) ---------------------------------------
+  # Ative SOMENTE depois de confirmar que o certificado SSL do domínio está válido
+  # (cPanel > SSL/TLS Status). Para ativar, remova o "#" das quatro linhas abaixo.
+  # RewriteCond %{HTTPS} !=on [OR]
+  # RewriteCond %{HTTP_HOST} ^www\. [NC]
+  # RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  # RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # --- Endereços antigos (301 permanente) -------------------------------------
+  RewriteRule ^sobre/?$ /conheca-a-pilaris [R=301,L]
+  RewriteRule ^servicos/?$ /nossas-solucoes [R=301,L]
+
+  # --- Um único endereço por página -------------------------------------------
+  # /index.html  ->  /
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
+  # /pagina.html  ->  /pagina   (somente para páginas que existem; 404.html fica de fora)
+  RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_URI} !^/404\.html$
+  RewriteRule ^ /%1 [R=301,L]
+
+  # /pagina/  ->  /pagina   (pastas reais ficam de fora para nunca gerar um ciclo)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # --- Entrega da página ------------------------------------------------------
+  # /pagina  ->  /pagina.html (interno, o endereço não muda)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !^/404/?$
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+  # Reserva para servidores sem mod_rewrite (raro): o próprio Apache encontra
+  # /pagina.html a partir de /pagina. Como /blog também é uma pasta, ele é
+  # encaminhado para o arquivo da página.
+  Options +MultiViews
+  <IfModule mod_alias.c>
+    RedirectMatch 302 ^/blog/?$ /blog.html
+  </IfModule>
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Tipos de arquivo
+# ------------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+  AddType application/xml .xml
+  AddCharset utf-8 .html .css .js .xml .svg .txt
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Compressão
+# ------------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript text/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Cache
+# CSS, JavaScript e fontes ficam em /_astro/ e têm um código no nome que muda a
+# cada alteração, por isso podem ficar um ano no navegador. O HTML é sempre
+# revalidado.
+# ------------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,0 +1,185 @@
+---
+import { CheckCircle2, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
+import FormField from '../components/common/FormField.astro';
+import InnerPageHero from '../components/common/InnerPageHero.astro';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, contactPageSchema } from '../lib/schema';
+
+const title = `Contato | ${site.name}`;
+const description =
+  'Fale com a Pilaris BPO Financeiro por WhatsApp, e-mail ou formulário. Atendimento de segunda a sexta, das 8h às 18h, com resposta inicial em até 24 horas.';
+const pageUrl = `${site.url}/contato`;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Pilaris', url: site.url },
+    { name: 'Contato', url: pageUrl }
+  ]),
+  contactPageSchema(pageUrl, title, description)
+];
+---
+
+<BaseLayout title={title} description={description} schemas={schemas}>
+
+  <div class="animate-fadeIn">
+    {/* Dobra 01: Hero da página */}
+    <InnerPageHero
+      title="Contato"
+      description="Agende uma conversa estratégica e descubra como estruturar o financeiro da sua empresa com mais controle e clareza."
+      image="/images/contato-pilaris-bpo-financeiro.jpg"
+      mobileImagePosition="left"
+    />
+
+    {/* Dobra 02: Informações de contato */}
+    <section class="py-24 bg-white">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+            <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+            <span>FALE CONOSCO</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight">
+            Vamos estruturar a sua base financeira.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-[#F2F5F7] rounded-3xl p-8 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-[#3B82F6] flex items-center justify-center mb-6 shadow-xs">
+                <MapPin className="w-6 h-6" />
+              </div>
+              <h3 class="text-xl font-bold text-[#0F172A] mb-2">Onde estamos</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Belo Horizonte, MG — Atendimento nacional para empresas de todo o Brasil.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#F2F5F7] rounded-3xl p-8 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-[#3B82F6] flex items-center justify-center mb-6 shadow-xs">
+                <Phone className="w-6 h-6" />
+              </div>
+              <h3 class="text-xl font-bold text-[#0F172A] mb-2">Fale com a gente</h3>
+              <div class="text-sm text-slate-600 space-y-2">
+                <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-[#3B82F6] font-semibold hover:underline">
+                  <Phone className="w-4 h-4" />
+                  <span>WhatsApp: {site.whatsappRaw}</span>
+                </a>
+                <a href={`mailto:${site.email}`} class="flex items-center gap-2 hover:underline">
+                  <Mail className="w-4 h-4 text-slate-400" />
+                  <span>{site.email}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#F2F5F7] rounded-3xl p-8 border border-slate-200/80 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-white text-[#3B82F6] flex items-center justify-center mb-6 shadow-xs">
+                <Clock className="w-6 h-6" />
+              </div>
+              <h3 class="text-xl font-bold text-[#0F172A] mb-2">Atendimento</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Segunda a Sexta, das 8h às 18h.<br />
+                <span class="font-bold text-[#3B82F6]">Resposta inicial garantida em até 24h.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Dobra 03: Formulário & Imagem */}
+    <section class="py-24 bg-[#F2F5F7] border-t border-slate-200">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+          {/* Form */}
+          <div class="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+            <div class="mb-8">
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
+                Converse com nossos especialistas.
+              </h2>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Preencha o formulário para agendar uma conversa estratégica. Vamos entender as suas necessidades e apresentar a Pilaris como parceira do seu crescimento.
+              </p>
+            </div>
+
+            <form data-local-form class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField label="Nome completo *" name="nome" required placeholder="Seu nome" autocomplete="name" gap="space-y-1" />
+                <FormField label="E-mail corporativo *" name="email" type="email" required placeholder="email@empresa.com.br" autocomplete="email" gap="space-y-1" />
+              </div>
+
+              <FormField label="Telefone com DDD *" name="telefone" type="tel" required placeholder="(31) 99999-9999" autocomplete="tel" gap="space-y-1" />
+
+              <FormField
+                label="Sua mensagem *"
+                name="mensagem"
+                type="textarea"
+                required
+                placeholder="Conte um pouco sobre as rotinas e necessidades da sua empresa..."
+                gap="space-y-1"
+              />
+
+              <button
+                type="submit"
+                class="w-full py-4 rounded-full bg-[#055ED3] hover:bg-[#0F172A] text-white font-bold text-sm transition-colors duration-300 shadow-md cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>Agendar conversa</span>
+              </button>
+
+              <p class="text-xs text-center text-slate-400 pt-1">
+                🔒 Retornamos em até 24 horas. Sigilo total garantido.
+              </p>
+            </form>
+            <div hidden data-local-form-success role="status" class="text-center py-10 space-y-4">
+              <CheckCircle2 className="w-14 h-14 text-emerald-500 mx-auto" />
+              <h3 class="text-2xl font-bold text-[#0F172A]">Recebemos a sua mensagem!</h3>
+              <p class="text-sm text-slate-600 max-w-sm mx-auto">
+                Retornamos em até 24 horas. Se preferir agilidade imediata, inicie uma conversa diretamente no WhatsApp.
+              </p>
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block mt-3 px-6 py-3 rounded-full bg-[#055ED3] text-white font-bold text-xs uppercase"
+              >
+                Chamar no WhatsApp →
+              </a>
+            </div>
+          </div>
+
+          {/* Team image box */}
+          <div class="lg:col-span-5 h-full flex flex-col gap-6">
+            <div class="flex-1 rounded-3xl overflow-hidden shadow-md border border-slate-200 bg-white p-3 min-h-[320px] lg:min-h-0">
+              <div class="h-full rounded-2xl overflow-hidden group relative">
+                <img
+                  src="/images/contato-equipe-pilaris-bpo-financeiro.jpg"
+                  alt="Equipe da Pilaris BPO Financeiro"
+                  class="w-full h-full min-h-[320px] lg:min-h-0 object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+            </div>
+
+            <div class="shrink-0 bg-white rounded-3xl p-6 border border-slate-200 text-xs text-slate-600 space-y-2">
+              <div class="font-bold text-[#0F172A] text-sm">
+                Atendimento em todo o território nacional
+              </div>
+              <p>
+                Utilizamos ferramentas digitais seguras e integradas para realizar toda a gestão financeira da sua empresa remotamente com o mesmo nível de proximidade de uma equipe interna.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/local-form';
+</script>

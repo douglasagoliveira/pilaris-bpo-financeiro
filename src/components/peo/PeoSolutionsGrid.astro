@@ -1,0 +1,69 @@
+---
+/** The six solution cards. */
+const solutionList = [
+  {
+    num: '001.',
+    title: 'Organização Financeira e Estruturação Operacional',
+    desc: 'Um único lugar para registrar e acompanhar tudo o que movimenta o caixa, com processos estruturados para reduzir falhas.',
+    tags: ['Organizar', 'Estruturar', 'Padronizar']
+  },
+  {
+    num: '002.',
+    title: 'Contas a Pagar e a Receber',
+    desc: 'Controle de vencimentos e recebimentos, evitando atraso, multa ou perda de prazo de pagamentos.',
+    tags: ['Pagar', 'Receber', 'Acompanhar']
+  },
+  {
+    num: '003.',
+    title: 'Conciliação Bancária',
+    desc: 'Cruzamento entre extrato e lançamentos, para que nenhuma divergência passe despercebida no fechamento diário.',
+    tags: ['Cruzar', 'Conferir', 'Corrigir']
+  },
+  {
+    num: '004.',
+    title: 'Emissão de Boletos e Notas Fiscais',
+    desc: 'Cobranças geradas e enviadas dentro do fluxo, e notas fiscais emitidas no prazo, sem atropelo de última hora.',
+    tags: ['Cobrar', 'Emitir', 'Enviar']
+  },
+  {
+    num: '005.',
+    title: 'Controle de Fluxo de Caixa',
+    desc: 'Visão de entradas e saídas atualizada, para decidir com base no que existe, não no que parece.',
+    tags: ['Projetar', 'Acompanhar', 'Antecipar']
+  },
+  {
+    num: '006.',
+    title: 'Relatórios, Indicadores e Interface Fiscal',
+    desc: 'Números organizados e traduzidos em informação útil, com as obrigações fiscais acompanhadas junto da rotina financeira.',
+    tags: ['Medir', 'Interpretar', 'Decidir']
+  }
+];
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {
+    solutionList.map((sol) => (
+      <div
+        class="group bg-[#F2F5F7] rounded-3xl p-8 border border-slate-200/80 hover:bg-white hover:border-[#3B82F6]/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between"
+      >
+        <div>
+          <span class="font-mono text-sm font-bold text-[#3B82F6] block mb-4">{sol.num}</span>
+
+          <h2 class="text-2xl font-extrabold text-[#0F172A] group-hover:text-[#3B82F6] transition-colors mb-4 leading-snug">
+            {sol.title}
+          </h2>
+
+          <p class="text-sm text-[#3D4857] leading-relaxed mb-6">{sol.desc}</p>
+
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200/80">
+            {sol.tags.map((tag) => (
+              <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-white text-slate-700 border border-slate-200 group-hover:bg-[#EAF1FF] group-hover:text-[#3B82F6] transition-colors">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,93 @@
+---
+import { Play } from 'lucide-react';
+import AboutCare from '../components/about/AboutCare';
+import AboutClosing from '../components/about/AboutClosing.astro';
+import AboutFaq from '../components/about/AboutFaq.astro';
+import AboutIntro from '../components/about/AboutIntro';
+import AboutMarquee from '../components/about/AboutMarquee.astro';
+import AboutPurpose from '../components/about/AboutPurpose';
+import AboutStats from '../components/about/AboutStats.astro';
+import InnerPageHero from '../components/common/InnerPageHero.astro';
+import VideoModal from '../components/modals/VideoModal.astro';
+import PeoButton from '../components/peo/PeoButton.astro';
+import { about } from '../data/about';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { aboutPageSchema, breadcrumbSchema, faqSchema } from '../lib/schema';
+import '../styles/about.css';
+
+/* Every text of this page lives in src/data/about.ts */
+const { cta: introCta, video: introVideo, ...intro } = about.intro;
+const { cta: purposeCta, ...purpose } = about.purpose;
+
+const pageUrl = `${site.url}/conheca-a-pilaris`;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Pilaris', url: site.url },
+    { name: about.breadcrumb, url: pageUrl }
+  ]),
+  aboutPageSchema(pageUrl, about.meta.title, about.meta.description),
+  faqSchema(about.faq.items)
+];
+---
+
+<BaseLayout title={about.meta.title} description={about.meta.description} schemas={schemas}>
+  {/* Entrances only hide content when scripts run: see src/styles/about.css */}
+  <script is:inline>
+    document.documentElement.classList.add('about-js');
+  </script>
+
+  <div class="animate-fadeIn about-page bg-[#FAFDFD]">
+    {/* Dobra 01: Hero da página (componente compartilhado; aqui só mudam os textos) */}
+    <InnerPageHero
+      title={about.hero.title}
+      description={about.hero.description}
+      image={about.hero.image}
+      desktopImagePosition="center 40%"
+      mobileImagePosition="right"
+    />
+
+    {/* Dobra 02: Por que existimos */}
+    <AboutIntro client:load content={intro}>
+      <PeoButton slot="cta" label={introCta.label} href={introCta.href} />
+      <Fragment slot="video">
+        {introVideo && (
+          <VideoModal
+            triggerAs="button"
+            triggerClass="group/video absolute bottom-4 right-4 sm:bottom-5 sm:right-5 inline-flex items-center gap-3 rounded-full bg-[#FAFDFD] py-2 pl-2 pr-5 text-sm font-semibold text-[#021A39] transition-colors duration-300 hover:bg-[#021A39] hover:text-[#FAFDFD] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FAFDFD] cursor-pointer"
+            eyebrow={introVideo.eyebrow}
+            heading={introVideo.heading}
+            iframeTitle={introVideo.iframeTitle}
+            videoUrl={introVideo.url}
+          >
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#055ED3] text-[#FAFDFD] transition-transform duration-300 group-hover/video:scale-110">
+              <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+            </span>
+            <span>{introVideo.trigger}</span>
+          </VideoModal>
+        )}
+      </Fragment>
+    </AboutIntro>
+
+    {/* Dobra 03: Números */}
+    <AboutStats label={about.stats.label} items={about.stats.items} />
+
+    {/* Dobra 04: Missão, visão e valores */}
+    <AboutPurpose client:idle content={purpose}>
+      <PeoButton label={purposeCta.label} href={purposeCta.href} class="about-btn-on-dark" />
+    </AboutPurpose>
+
+    {/* Dobra 05: Faixa em movimento com os valores */}
+    <AboutMarquee words={about.purpose.values.items.map((value) => value.name)} />
+
+    {/* Dobra 06: Como cuidamos de você */}
+    <AboutCare client:idle content={about.care} />
+
+    {/* Dobra 07: Perguntas frequentes */}
+    <AboutFaq eyebrow={about.faq.eyebrow} title={about.faq.title} items={about.faq.items} />
+
+    {/* Dobra 08: Fechamento */}
+    <AboutClosing title={about.closing.title} text={about.closing.text} cta={about.closing.cta} />
+  </div>
+</BaseLayout>

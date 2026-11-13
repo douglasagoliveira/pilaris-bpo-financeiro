@@ -1,0 +1,89 @@
+---
+import { X } from 'lucide-react';
+
+/**
+ * A trigger (its content comes from the slot) that opens a video in a dialog.
+ * The player only exists while the dialog is open: nothing is requested from the video
+ * service before the visitor asks for it.
+ */
+interface Props {
+  /** Identifier of the dialog. Must be unique in the page. */
+  id?: string;
+  /** Classes of the element that opens the video. */
+  triggerClass: string;
+  /** `button` renders a native button; `div` keeps a block trigger that is still keyboard accessible. */
+  triggerAs?: 'button' | 'div';
+  /** Accessible name of the trigger, when its visible content is not enough. */
+  triggerLabel?: string;
+  eyebrow: string;
+  heading: string;
+  iframeTitle: string;
+  videoUrl: string;
+}
+
+const {
+  id = 'video-modal',
+  triggerClass,
+  triggerAs = 'div',
+  triggerLabel,
+  eyebrow,
+  heading,
+  iframeTitle,
+  videoUrl
+} = Astro.props;
+---
+
+{
+  triggerAs === 'button' ? (
+    <button type="button" class={triggerClass} aria-label={triggerLabel} aria-haspopup="dialog" data-modal-open={id}>
+      <slot />
+    </button>
+  ) : (
+    <div
+      role="button"
+      tabindex="0"
+      class={triggerClass}
+      aria-label={triggerLabel}
+      aria-haspopup="dialog"
+      data-modal-open={id}
+    >
+      <slot />
+    </div>
+  )
+}
+
+<template id={id}>
+  <div class="fixed inset-0 z-50 bg-[#0F172A]/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={heading}
+      class="bg-[#0F172A] rounded-2xl max-w-3xl w-full p-6 text-white relative shadow-2xl border border-slate-700"
+    >
+      <button
+        type="button"
+        data-modal-close
+        aria-label="Fechar vídeo"
+        class="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-white hover:bg-slate-700 transition-colors cursor-pointer"
+      >
+        <X className="w-5 h-5" />
+      </button>
+      <div class="mb-4">
+        <span class="text-xs font-mono uppercase text-[#3B82F6] font-normal">{eyebrow}</span>
+        <h2 class="text-xl font-bold mt-1 text-white">{heading}</h2>
+      </div>
+      <div class="aspect-video bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center relative">
+        <iframe
+          class="w-full h-full"
+          src={videoUrl}
+          title={iframeTitle}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import '../../scripts/modal';
+</script>

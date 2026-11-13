@@ -1,0 +1,257 @@
+---
+import {
+  Activity,
+  CheckCircle2,
+  LineChart,
+  ListChecks,
+  Search,
+  Send,
+  UserRound,
+  UsersRound
+} from 'lucide-react';
+import FormField from '../components/common/FormField.astro';
+import InnerPageHero from '../components/common/InnerPageHero.astro';
+import PeoButton from '../components/peo/PeoButton.astro';
+import PeoMarqueeBand from '../components/peo/PeoMarqueeBand.astro';
+import PeoSolutionsGrid from '../components/peo/PeoSolutionsGrid.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/schema';
+
+const title = `Nossas Soluções | ${site.name}`;
+const description =
+  'Organização financeira, contas a pagar e a receber, conciliação bancária, boletos e notas fiscais, fluxo de caixa e relatórios gerenciais para a sua empresa.';
+const pageUrl = `${site.url}/nossas-solucoes`;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Pilaris', url: site.url },
+    { name: 'Nossas Soluções', url: pageUrl }
+  ]),
+  ...services.map((service) => serviceSchema(service.title, service.shortDescription, pageUrl))
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Diagnóstico',
+    description:
+      'Mapeamos como o financeiro funciona hoje: planilhas, contas bancárias, boletos, notas fiscais e onde os erros e atrasos acontecem.',
+    icon: Search
+  },
+  {
+    number: '02',
+    title: 'Organização',
+    description:
+      'Estruturamos categorias, fluxos de contas a pagar e receber e responsabilidades. Cada rotina passa a ter dono e prazo.',
+    icon: ListChecks
+  },
+  {
+    number: '03',
+    title: 'Operação acompanhada',
+    description:
+      'Assumimos a rotina operacional (conciliação, cobranças, emissão) e você recebe relatórios com regularidade, sem precisar cobrar informação.',
+    icon: Activity
+  },
+  {
+    number: '04',
+    title: 'Decisão com dados',
+    description:
+      'Com o caixa previsível, você enxerga o que está por trás dos números e decide com base no que realmente existe na empresa.',
+    icon: LineChart
+  }
+];
+
+const audienceCards = [
+  {
+    title: 'Você cuida do financeiro sozinho',
+    pain:
+      'Você fecha o mês no improviso, concilia nos fins de semana e sente que o negócio depende da sua memória.',
+    gain: 'Você volta a ser dono do negócio, não o operador do próprio caixa.',
+    icon: UserRound
+  },
+  {
+    title: 'Você paga para alguém fazer o financeiro',
+    pain:
+      'Contratar um funcionário significa treinar, lidar com ausências, arcar com custo fixo e depender de uma única pessoa.',
+    gain: 'Uma equipe especializada, com processos e cobertura, sem o peso de folha e encargos.',
+    icon: UsersRound
+  }
+];
+---
+
+<BaseLayout title={title} description={description} schemas={schemas}>
+
+  <div class="animate-fadeIn">
+    {/* Dobra 01: Hero da página */}
+    <InnerPageHero
+      title="Nossas Soluções"
+      description="Gestão financeira estruturada e integrada para empresas que querem processos organizados e decisões com dados reais."
+      image="/images/pilaris-bpo-financeiro-servicos.jpg"
+    />
+
+    {/* Dobra 02: Lista de serviços (6 cards; cada um abre o detalhe da solução) */}
+    <section class="py-24 bg-white">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+        <PeoSolutionsGrid />
+      </div>
+    </section>
+
+    {/* Dobra 03: Como funciona */}
+    <section class="py-24 lg:py-32 bg-[#F2F5F7] border-y border-slate-200/80">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+        <div class="max-w-3xl mb-12 lg:mb-16">
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+            <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+            <span>COMO FUNCIONA</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-semibold tracking-[-0.035em] text-[#0F172A] leading-[1.15]">
+            Do caos à rotina financeira em quatro passos
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-[#3D4857] leading-relaxed max-w-2xl">
+            Você não precisa parar a operação para começar. Entendemos o cenário atual, organizamos o que está solto e assumimos a rotina com acompanhamento.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {processSteps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <article class="group rounded-2xl border border-slate-200/80 bg-white p-6 lg:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-[#055ED3]/40 hover:shadow-[0_16px_32px_rgba(2,26,57,0.12)] focus-within:-translate-y-2 focus-within:border-[#055ED3]/50 focus-within:shadow-[0_16px_32px_rgba(2,26,57,0.12)]">
+                <div class="flex items-center justify-between gap-4">
+                  <span class="font-mono text-sm font-bold text-[#3B82F6]">{step.number}</span>
+                  <div class="w-11 h-11 rounded-xl bg-[#055ED3]/10 text-[#055ED3] border border-[#055ED3]/20 flex items-center justify-center transition-all duration-300 group-hover:bg-[#055ED3] group-hover:text-white group-hover:scale-105">
+                    <Icon className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                </div>
+                <h3 class="mt-8 text-xl font-semibold tracking-tight text-[#0F172A] transition-colors duration-300 group-hover:text-[#055ED3]">
+                  {step.title}
+                </h3>
+                <p class="mt-4 border-t border-slate-200/80 pt-5 text-sm text-[#3D4857] leading-relaxed">
+                  {step.description}
+                </p>
+              </article>
+            );
+          })}
+        </div>
+
+        <div class="mt-10">
+          <PeoButton label="Quero um diagnóstico" href="/diagnostico" />
+        </div>
+      </div>
+    </section>
+
+    {/* Dobra 04: Para quem é */}
+    <section class="py-24 lg:py-32 bg-white">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+        <div class="max-w-3xl mb-12 lg:mb-16">
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+            <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+            <span>PARA QUEM É</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-semibold tracking-[-0.035em] text-[#0F172A] leading-[1.15]">
+            Para quem precisa de um financeiro resolvido, não de mais um problema para gerenciar
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {audienceCards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <article class="group rounded-3xl p-7 sm:p-9 bg-[#F2F5F7] border border-slate-200/80 transition-all duration-300 hover:-translate-y-1 hover:border-[#055ED3]/35 hover:shadow-[0_16px_32px_rgba(2,26,57,0.1)] focus-within:border-[#055ED3]/50 focus-within:shadow-[0_16px_32px_rgba(2,26,57,0.1)]">
+                <div class="flex items-start justify-between gap-6 mb-8">
+                  <span class="font-mono text-sm font-bold text-[#3B82F6]">0{index + 1}</span>
+                  <div class="w-12 h-12 rounded-2xl bg-white text-[#055ED3] flex items-center justify-center shadow-xs transition-transform duration-300 group-hover:scale-105">
+                    <Icon className="w-6 h-6" aria-hidden="true" />
+                  </div>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0F172A] leading-tight mb-7">
+                  {card.title}
+                </h3>
+                <div class="space-y-5">
+                  <div>
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Dor</span>
+                    <p class="mt-2 text-sm sm:text-base text-[#3D4857] leading-relaxed">{card.pain}</p>
+                  </div>
+                  <div class="pt-5 border-t border-slate-300/70">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#055ED3]">Ganho</span>
+                    <p class="mt-2 text-sm sm:text-base font-semibold text-[#0F172A] leading-relaxed">{card.gain}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div class="mt-12 flex flex-col sm:flex-row sm:items-center gap-6">
+          <p class="text-base sm:text-lg text-[#3D4857]">Se você se reconheceu em um dos dois, a conversa começa aqui.</p>
+          <PeoButton label="Falar com a Pilaris" href="/contato" variant="dark" />
+        </div>
+      </div>
+    </section>
+
+    {/* Dobra 05: Formulário “Envie uma mensagem” */}
+    <section class="py-24 bg-[#F2F5F7]">
+      <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
+        <div class="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 border border-slate-200 shadow-sm">
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+              <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+              <span>FALE COM A PILARIS</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+              Conte como está o financeiro da sua empresa.
+            </h2>
+          </div>
+
+          <form data-local-form class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <FormField label="Nome completo *" name="nome" required placeholder="Seu nome" autocomplete="name" />
+              <FormField label="E-mail corporativo *" name="email" type="email" required placeholder="email@empresa.com.br" autocomplete="email" />
+              <FormField label="Telefone com DDD *" name="telefone" type="tel" required placeholder="(31) 99999-9999" autocomplete="tel" />
+            </div>
+
+            <FormField
+              label="Sua mensagem *"
+              name="mensagem"
+              type="textarea"
+              required
+              placeholder="Conte sobre sua rotina, dores ou número de lançamentos..."
+            />
+
+            <button
+              type="submit"
+              class="w-full py-4 rounded-full bg-[#055ED3] hover:bg-[#0F172A] text-white font-bold text-sm transition-colors duration-300 shadow-md cursor-pointer flex items-center justify-center gap-2"
+            >
+              <Send className="w-4 h-4" />
+              <span>Agendar conversa</span>
+            </button>
+          </form>
+          <div hidden data-local-form-success role="status" class="text-center py-8 space-y-4">
+            <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
+            <h3 class="text-2xl font-bold text-[#0F172A]">Recebemos sua mensagem!</h3>
+            <p class="text-sm text-slate-600">
+              Retornaremos o contato em até 24 horas no WhatsApp ou e-mail informado.
+            </p>
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block mt-4 text-xs font-bold font-mono text-[#3B82F6] underline"
+            >
+              Falar no WhatsApp agora mesmo →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Dobra 06: Faixa em movimento */}
+    <PeoMarqueeBand />
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/local-form';
+</script>

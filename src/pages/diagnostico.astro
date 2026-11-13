@@ -1,0 +1,105 @@
+---
+import { ShieldCheck, Sparkles, TrendingUp } from 'lucide-react';
+import DiagnosticQuiz from '../components/home/DiagnosticQuiz';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = `Diagnóstico de Maturidade Financeira | ${site.name}`;
+const description =
+  'Autoavaliação gratuita e confidencial em 4 perguntas: descubra o estágio de maturidade financeira da sua empresa e o que ajustar para crescer com segurança.';
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Pilaris', url: site.url },
+    { name: 'Diagnóstico', url: `${site.url}/diagnostico` }
+  ])
+];
+---
+
+<BaseLayout title={title} description={description} schemas={schemas}>
+
+  <div class="animate-fadeIn">
+    {/* Page Hero */}
+    <section class="pt-[140px] pb-20 bg-[#021A39] text-white relative overflow-hidden">
+      <img
+        src="/brand/pattern-waves.svg"
+        alt=""
+        aria-hidden="true"
+        class="absolute -right-20 -top-20 w-[45vw] opacity-10 pointer-events-none"
+      />
+
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
+        <div class="max-w-3xl space-y-6">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-[-0.05em] leading-[0.98] text-white">
+            Diagnóstico de Maturidade Financeira e Fiscal.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            Autoavaliação 100% gratuita e confidencial: descubra em qual estágio de maturidade sua empresa se encontra, quais riscos invisíveis você está correndo e o que precisa ser ajustado para crescer com segurança.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Interactive Quiz: static heading, the question card is the only interactive part */}
+    <section id="diagnostico-section" class="py-24 bg-[#021A39] text-white relative overflow-hidden border-b border-white/10">
+      <div class="max-w-[980px] mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+          <h2 class="text-3xl sm:text-5xl font-normal tracking-[-0.04em] text-white">
+            Diagnóstico: em que nível de maturidade está a gestão financeira da sua empresa?
+          </h2>
+
+          <p class="text-sm sm:text-base text-slate-300">
+            Autoavaliação gratuita em 4 perguntas rápidas (menos de 2 minutos). Descubra os riscos ocultos do seu caixa e o potencial de economia.
+          </p>
+        </div>
+
+        <DiagnosticQuiz client:idle />
+      </div>
+    </section>
+
+    {/* Why Diagnostic Matters */}
+    <section class="py-20 bg-[#FAFDFF] text-[#021A39]">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-8 rounded-3xl bg-[#E9EBFF] border border-[#99B7FC]/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#055ED3] text-white flex items-center justify-center">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-normal text-[#021A39]">
+              Prevenção de Passivos
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Identifique antes do Fisco erros em alíquotas de notas, retenções indevidas e atrasos em guias tributárias.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-[#E9EBFF] border border-[#99B7FC]/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#055ED3] text-white flex items-center justify-center">
+              <TrendingUp className="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-normal text-[#021A39]">
+              Previsibilidade Real de Caixa
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Saiba exatamente quanto dinheiro estará disponível nos próximos 3 meses para não depender de cheque especial caro.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-[#E9EBFF] border border-[#99B7FC]/30 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#055ED3] text-white flex items-center justify-center">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-normal text-[#021A39]">
+              Plano de Ação Personalizado
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Receba uma recomendação sob medida com as etapas práticas para profissionalizar seu setor financeiro.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

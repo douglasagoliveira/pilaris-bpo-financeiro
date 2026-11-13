@@ -1,0 +1,60 @@
+---
+import { Plus } from 'lucide-react';
+import type { AboutFaqItem, AboutHeading } from '../../data/about';
+import { Eyebrow } from './AboutParts';
+
+interface Props {
+  eyebrow: string;
+  title: AboutHeading;
+  items: AboutFaqItem[];
+}
+
+const { eyebrow, title, items } = Astro.props;
+---
+
+<section class="bg-[#E9EBFF] py-24 lg:py-32">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-12">
+      {/* Title: stays in view while the questions scroll (large screens) */}
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-32" data-reveal>
+          <Eyebrow>{eyebrow}</Eyebrow>
+
+          <h2 class="mt-5 text-[34px] sm:text-5xl lg:text-[44px] font-semibold tracking-[-0.04em] leading-[1.08] text-[#021A39] text-balance">
+            {title.text}
+            {title.accent && <span class="text-[#055ED3]"> {title.accent}</span>}
+          </h2>
+        </div>
+      </div>
+
+      {/* Questions: native <details>, one open at a time (shared `name`) */}
+      <div class="lg:col-span-8 lg:col-start-5 lg:pl-10">
+        {items.map((item, index) => (
+          <div data-reveal style={`--reveal-order: ${index}`} class="border-t border-[#021A39]/15 last:border-b">
+            <details name="duvidas-comuns" open={index === 0} class="about-faq group">
+              <summary class="flex items-start gap-4 sm:gap-6 py-6 sm:py-7 cursor-pointer list-none [&::-webkit-details-marker]:hidden rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#055ED3]">
+                <span class="font-mono text-sm leading-7 sm:leading-8 text-[#055ED3]" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h3 class="flex-1 text-lg sm:text-[22px] font-semibold tracking-[-0.02em] leading-7 sm:leading-8 text-[#021A39] transition-colors duration-300 group-hover:text-[#055ED3] group-open:text-[#055ED3]">
+                  {item.question}
+                </h3>
+                <span class="mt-0.5 flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-[#021A39]/20 text-[#021A39] transition-all duration-300 group-hover:border-[#055ED3] group-hover:text-[#055ED3] group-open:rotate-45 group-open:border-[#055ED3] group-open:bg-[#055ED3] group-open:text-[#FAFDFD]">
+                  <Plus className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </summary>
+
+              <p class="pb-7 sm:pb-8 pl-9 sm:pl-[46px] pr-11 sm:pr-16 text-base sm:text-[17px] leading-relaxed text-[#021A39]/80">
+                {item.answer}
+              </p>
+            </details>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>

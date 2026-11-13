@@ -1,0 +1,69 @@
+---
+import {
+  CreditCard,
+  LineChart,
+  Receipt,
+  PieChart
+} from 'lucide-react';
+
+const activities = [
+  {
+    id: 'contas-a-pagar',
+    icon: CreditCard,
+    title: 'Contas a Pagar & Receber',
+    subtitle: 'Agendamento em lote, cobrança ativa e zero multas por atraso'
+  },
+  {
+    id: 'fluxo-de-caixa',
+    icon: LineChart,
+    title: 'Fluxo de Caixa e Projeção',
+    subtitle: 'Conciliação diária e visão preditiva de liquidez para 30 a 90 dias'
+  },
+  {
+    id: 'emissao-de-notas',
+    icon: Receipt,
+    title: 'Boletos e Notas Fiscais',
+    subtitle: 'Faturamento ágil, emissão de NF em 2h e envio ao contador'
+  },
+  {
+    id: 'relatorios-gerenciais',
+    icon: PieChart,
+    title: 'DRE e Relatórios',
+    subtitle: 'Lucro líquido real por centro de custo entregue até o 5º dia útil'
+  }
+];
+---
+
+<div class="w-full max-w-[1200px] mx-auto px-4 sm:px-6 relative z-30 pt-10 sm:pt-14 mb-2">
+  {/* Daylight Glassmorphic Floating Pill Card */}
+  <div class="bg-white/95 backdrop-blur-2xl border border-white/80 rounded-[28px] lg:rounded-[36px] p-3 sm:p-5 lg:p-6 shadow-[0_25px_60px_-15px_rgba(2,26,57,0.22)] ring-1 ring-[#021A39]/5 transition-all duration-300">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:gap-2 lg:gap-0 lg:divide-x divide-slate-200/90 items-stretch">
+      {activities.map((item, idx) => {
+        const Icon = item.icon;
+        return (
+          <div
+            class={`group cursor-default p-3 sm:px-4 lg:px-5 py-3 transition-all duration-300 hover:bg-[#E9EBFF]/60 rounded-2xl flex items-center gap-3.5 ${
+              idx !== 0 ? 'pt-4 sm:pt-3' : ''
+            }`}
+          >
+            {/* Modern Icon in Glowing Pilaris Blue Badge */}
+            <div class="w-12 h-12 rounded-2xl bg-[#055ED3]/10 text-[#055ED3] border border-[#055ED3]/25 flex items-center justify-center flex-shrink-0 group-hover:bg-[#055ED3] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-sm">
+              <Icon className="w-6 h-6 transition-transform group-hover:scale-110" />
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-1 mb-0.5">
+                <h2 class="text-[15px] sm:text-[16px] font-semibold tracking-tight text-[#021A39] group-hover:text-[#055ED3] transition-colors leading-snug">
+                  {item.title}
+                </h2>
+              </div>
+              <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                {item.subtitle}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>

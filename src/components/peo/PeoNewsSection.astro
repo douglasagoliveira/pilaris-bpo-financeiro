@@ -1,0 +1,103 @@
+---
+import { ArrowUpRight, Calendar, Tag } from 'lucide-react';
+import { blogPosts } from '../../data/blog';
+
+const posts = [
+  {
+    slug: 'contas-a-pagar-e-receber',
+    category: 'Rotina financeira',
+    date: '19 Jan, 2026',
+    title: 'Contas a pagar e a receber: como evitar atraso, multa e perda de prazo',
+    desc: 'Como uma esteira financeira estruturada elimina o estresse de vencimentos e protege a liquidez da sua empresa.',
+    image: '/images/hero-dashboard.jpg'
+  },
+  {
+    slug: 'conciliacao-bancaria',
+    category: 'Controle',
+    date: '05 Fev, 2026',
+    title: 'Conciliação bancária: por que cruzar extrato e lançamentos todos os dias',
+    desc: 'Entenda por que deixar a conciliação para o fim do mês é o erro mais caro cometido por pequenas e médias empresas.',
+    image: '/images/relatorio-maos.jpg'
+  },
+  {
+    slug: 'fluxo-de-caixa',
+    category: 'Gestão',
+    date: '18 Fev, 2026',
+    title: 'Fluxo de caixa: decidir pelo que existe, não pelo que parece',
+    desc: 'Faturamento alto não significa dinheiro em caixa. Como a projeção preditiva a 90 dias garante decisões seguras.',
+    image: '/images/solucoes-gestao.jpg'
+  }
+];
+
+/* A card only links to an article page that exists; otherwise it goes to the blog listing. */
+const postHref = (slug: string) =>
+  blogPosts.some((post) => post.slug === slug) ? `/blog/${slug}` : '/blog';
+---
+
+<section class="py-24 lg:py-32 bg-white relative overflow-hidden border-b border-slate-100">
+  <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+    {/* Section Header */}
+    <div class="text-center max-w-2xl mx-auto mb-16 lg:mb-20">
+      <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+        <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+        <span>CONTEÚDO</span>
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl font-semibold tracking-[-0.035em] text-[#0F172A] leading-[1.15]">
+        Ideias para decidir melhor <br />
+        <span class="text-[#3B82F6]">sobre o seu financeiro.</span>
+      </h2>
+    </div>
+
+    {/* 3 News Cards in 3 columns (Peo style) */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {posts.map((post) => (
+        <a
+          href={postHref(post.slug)}
+          class="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-xl hover:border-[#3B82F6]/40 transition-all duration-400 hover:-translate-y-2 flex flex-col justify-between"
+        >
+          <div>
+            {/* Thumbnail */}
+            <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+              <img
+                src={post.image}
+                alt={post.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono font-normal text-[#3B82F6] flex items-center gap-1.5">
+                <Tag className="w-3 h-3" />
+                <span>{post.category}</span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div class="p-6 lg:p-7 space-y-3">
+              <div class="flex items-center gap-2 text-xs text-slate-400 font-mono">
+                <Calendar className="w-3.5 h-3.5" />
+                <span>{post.date}</span>
+              </div>
+
+              <h3 class="text-xl font-semibold tracking-tight text-[#0F172A] group-hover:text-[#3B82F6] transition-colors leading-snug">
+                {post.title}
+              </h3>
+
+              <p class="text-sm text-[#3D4857] leading-relaxed line-clamp-2">
+                {post.desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Card Footer Link */}
+          <div class="px-6 lg:px-7 pb-6 pt-2">
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#3B82F6] group-hover:text-[#0F172A] transition-colors">
+              <span>Ler artigo</span>
+              <div class="w-7 h-7 rounded-full bg-[#F2F5F7] group-hover:bg-[#055ED3] group-hover:text-white flex items-center justify-center transition-colors">
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

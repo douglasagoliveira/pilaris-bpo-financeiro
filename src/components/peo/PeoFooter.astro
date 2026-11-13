@@ -1,0 +1,215 @@
+---
+import { ArrowUpRight, Phone, Mail, MapPin, Clock, MessageSquare, ShieldCheck } from 'lucide-react';
+import { site } from '../../data/site';
+import PeoButton from './PeoButton.astro';
+---
+
+<footer class="bg-[#0A0F1D] text-white pt-20 pb-10 border-t border-slate-800 relative overflow-hidden">
+  {/* Decorative ambient light */}
+  <div class="absolute top-0 right-1/3 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10">
+    {/* Top Header Row of the Footer (Peo style) */}
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-14 border-b border-white/10">
+      <div class="space-y-4 max-w-xl">
+        <a href="/" class="inline-block">
+          <img
+            src="/brand/logo-pilaris-bpo-branco.png"
+            alt="Pilaris BPO Financeiro"
+            class="h-10 sm:h-12 w-auto"
+          />
+        </a>
+        <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
+          Gestão financeira estruturada e inteligência decisória para empresas em expansão.
+        </p>
+      </div>
+
+      <div>
+        <PeoButton label="Vamos conversar" href={site.whatsapp} target="_blank" />
+      </div>
+    </div>
+
+    {/* 3 Main Columns of the Footer (Peo structure) */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 py-14 border-b border-white/10">
+      {/* Column 1: Links rápidos (lg:col-span-3) */}
+      <div class="lg:col-span-3 space-y-4">
+        <h2 class="text-lg font-bold text-white tracking-tight">
+          Links rápidos
+        </h2>
+        <ul class="space-y-3 text-sm text-slate-300">
+          <li>
+            <a
+              href="/"
+              class="hover:text-[#3B82F6] transition-colors flex items-center gap-1.5 group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">A Pilaris</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/conheca-a-pilaris"
+              class="hover:text-[#3B82F6] transition-colors flex items-center gap-1.5 group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Conheça a Pilaris</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center gap-1.5 group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Nossas Soluções</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/contato"
+              class="hover:text-[#3B82F6] transition-colors flex items-center gap-1.5 group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Contato</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Column 2: Soluções (lg:col-span-5) */}
+      <div class="lg:col-span-5 space-y-4">
+        <h2 class="text-lg font-bold text-white tracking-tight">
+          Soluções
+        </h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-slate-300">
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Organização e estrutura</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Contas a pagar e a receber</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Conciliação bancária</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Boletos e notas fiscais</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Fluxo de caixa</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nossas-solucoes"
+              class="hover:text-[#3B82F6] transition-colors flex items-center justify-between group"
+            >
+              <span class="group-hover:translate-x-1 transition-transform">Relatórios e interface fiscal</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#3B82F6] transition-opacity" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Column 3: Fale conosco (lg:col-span-4) */}
+      <div class="lg:col-span-4 space-y-4">
+        <h2 class="text-lg font-bold text-white tracking-tight">
+          Fale conosco
+        </h2>
+        <div class="space-y-3 text-sm text-slate-300">
+          <div class="flex items-start gap-3">
+            <MapPin className="w-4 h-4 text-[#3B82F6] flex-shrink-0 mt-1" />
+            <span>Belo Horizonte, MG — Atendimento nacional</span>
+          </div>
+
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-3 hover:text-[#3B82F6] transition-colors"
+          >
+            <Phone className="w-4 h-4 text-[#3B82F6] flex-shrink-0" />
+            <span>+55 31 99630-4544</span>
+          </a>
+
+          <a
+            href={`mailto:${site.email}`}
+            class="flex items-center gap-3 hover:text-[#3B82F6] transition-colors"
+          >
+            <Mail className="w-4 h-4 text-[#3B82F6] flex-shrink-0" />
+            <span>{site.email}</span>
+          </a>
+
+          <div class="flex items-center gap-3 text-slate-400 text-xs pt-1">
+            <Clock className="w-4 h-4 text-[#3B82F6] flex-shrink-0" />
+            <span>Horário: Seg - Sex das 8h às 18h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Bar: Copyright + Legal + Social Icons (Peo style) */}
+    <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
+      <div>
+        © 2026 Pilaris BPO. Todos os direitos reservados.
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-white transition-colors">
+          Política de privacidade
+        </a>
+        <span>।</span>
+        <a href="#" class="hover:text-white transition-colors">
+          Termos e condições
+        </a>
+      </div>
+
+      {/* Peo Circular Social Icons */}
+      <div class="flex items-center gap-3">
+        <a
+          href={site.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#055ED3] text-white flex items-center justify-center transition-colors"
+          aria-label="WhatsApp"
+        >
+          <MessageSquare className="w-4 h-4" />
+        </a>
+        <a
+          href={`mailto:${site.email}`}
+          class="w-8 h-8 rounded-full bg-slate-800 hover:bg-[#055ED3] text-white flex items-center justify-center transition-colors"
+          aria-label="E-mail"
+        >
+          <Mail className="w-4 h-4" />
+        </a>
+        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400" title="Atendimento 100% ativo">
+          <ShieldCheck className="w-4 h-4" />
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

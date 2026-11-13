@@ -1,0 +1,57 @@
+---
+/* Scroll progress bar with a leading glow (top of the fixed header). */
+---
+
+<div class="fixed top-0 left-0 right-0 z-[100] pointer-events-none" data-scroll-progress>
+  {/* Background track */}
+  <div class="h-[4px] w-full bg-slate-900/40 backdrop-blur-sm relative overflow-hidden">
+    {/* Gradient progress bar */}
+    <div
+      data-scroll-bar
+      class="h-full w-full bg-gradient-to-r from-[#99B7FC] via-[#055ED3] via-blue-400 to-blue-300 origin-left will-change-transform shadow-[0_0_12px_rgba(5,94,211,0.8)] transition-transform duration-[120ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+      style="transform: scaleX(0)"
+    >
+    </div>
+    {/* Leading glow follower */}
+    <div
+      data-scroll-glow
+      class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-blue-200 rounded-full blur-[3px] pointer-events-none opacity-0 shadow-[0_0_10px_#93c5fd] transition-[left,opacity] duration-[120ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+    >
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-scroll-progress]');
+  const bar = root?.querySelector<HTMLElement>('[data-scroll-bar]');
+  const glow = root?.querySelector<HTMLElement>('[data-scroll-glow]');
+
+  if (bar) {
+    let ticking = false;
+
+    const update = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? Math.min(Math.max(scrollTop / totalHeight, 0), 1) : 0;
+
+      bar.style.transform = `scaleX(${progress})`;
+
+      if (glow) {
+        glow.style.left = `${progress * 100}%`;
+        glow.style.opacity = progress > 0.01 ? '1' : '0';
+      }
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>

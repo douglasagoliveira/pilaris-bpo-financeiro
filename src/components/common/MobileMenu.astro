@@ -1,0 +1,66 @@
+---
+import { MessageSquare } from 'lucide-react';
+import { navigation } from '../../data/navigation';
+import { site } from '../../data/site';
+import { routePath } from '../../lib/paths';
+
+/**
+ * Full-screen menu of small screens. It is shown and hidden by the button of the header
+ * (script in Header.astro). It lives at the end of the page, outside the header, so the fixed
+ * panel is sized by the viewport and stays above the floating WhatsApp button.
+ */
+const currentPath = routePath(Astro.url.pathname);
+---
+
+<div
+  id="mobile-menu"
+  hidden
+  class="fixed inset-0 top-[114px] bg-[#021A39]/98 text-white z-40 lg:hidden flex flex-col justify-between p-6 sm:p-8 backdrop-blur-xl animate-fadeIn overflow-y-auto"
+>
+  <nav class="flex flex-col gap-3 pt-2" aria-label="Menu principal para dispositivos móveis">
+    <p class="font-mono-code text-xs text-[#99B7FC] uppercase tracking-wider mb-2">
+      Todas as Páginas do Site
+    </p>
+    {
+      navigation.map((item) => {
+        const isActive = currentPath === item.href;
+
+        return (
+          <a
+            href={item.href}
+            aria-current={isActive ? 'page' : undefined}
+            class:list={[
+              'text-xl font-bold tracking-tight flex items-center justify-between py-2.5 border-b border-white/10',
+              isActive ? 'text-[#055ED3]' : 'text-white'
+            ]}
+          >
+            <span>{item.label}</span>
+            {item.badge && (
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded-full bg-[#055ED3] text-white">
+                {item.badge}
+              </span>
+            )}
+          </a>
+        );
+      })
+    }
+  </nav>
+
+  <div class="pt-6 pb-8 border-t border-white/10 flex flex-col gap-3">
+    <p class="text-sm text-slate-300">
+      Pronto para ter clareza nas contas da sua empresa?
+    </p>
+    <a
+      href={site.whatsapp}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-full py-3.5 rounded-full bg-[#055ED3] text-white font-bold text-center flex items-center justify-center gap-2 shadow-lg"
+    >
+      <MessageSquare className="w-4 h-4" />
+      <span>Chamar no WhatsApp</span>
+    </a>
+    <p class="font-mono-code text-xs text-center text-slate-400">
+      {site.email}
+    </p>
+  </div>
+</div>

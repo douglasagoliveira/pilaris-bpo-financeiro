@@ -1,0 +1,212 @@
+/*
+ * Page "Conheça a Pilaris" (/conheca-a-pilaris): what the Tailwind utilities do not cover.
+ * Imported only by src/pages/conheca-a-pilaris.astro, so no other page receives these rules.
+ * Colours follow docs/DESIGN.md: #021A39, #055ED3, #99B7FC, #E9EBFF and #FAFDFD.
+ */
+
+/* ------------------------------------------------------------------
+ * Shared button (PeoButton) in the brand palette, inside this page only
+ * ------------------------------------------------------------------ */
+.about-page .peo-btn {
+  --about-btn-bg: #055ED3;
+  --about-btn-ink: #FAFDFD;
+  --about-btn-dot: #021A39;
+
+  color: var(--about-btn-ink);
+  background-color: var(--about-btn-bg);
+}
+
+.about-page .peo-btn .btn_inner::before {
+  background-color: var(--about-btn-dot);
+}
+
+.about-page .peo-btn .btn_text {
+  color: var(--about-btn-ink);
+  transition: color 0.3s ease;
+}
+
+.about-page .peo-btn .btn_icon,
+.about-page .peo-btn:hover .btn_text {
+  color: #FAFDFD;
+}
+
+.about-page .peo-btn:focus-visible {
+  outline: 2px solid #021A39;
+  outline-offset: 3px;
+}
+
+/* On the dark blue section: light button that fills with the primary blue */
+.about-page .peo-btn.about-btn-on-dark {
+  --about-btn-bg: #FAFDFD;
+  --about-btn-ink: #021A39;
+  --about-btn-dot: #055ED3;
+}
+
+/* On the primary blue band: light button that fills with the dark blue */
+.about-page .peo-btn.about-btn-on-blue {
+  --about-btn-bg: #FAFDFD;
+  --about-btn-ink: #021A39;
+  --about-btn-dot: #021A39;
+}
+
+.about-page .peo-btn.about-btn-on-dark:focus-visible,
+.about-page .peo-btn.about-btn-on-blue:focus-visible {
+  outline-color: #FAFDFD;
+}
+
+/* Very narrow screens (under 360px): a long label wraps instead of leaving the screen */
+@media (max-width: 359px) {
+  .about-page .peo-btn {
+    max-width: 100%;
+  }
+
+  .about-page .peo-btn .btn_inner {
+    padding-right: 20px;
+  }
+
+  .about-page .peo-btn .btn_text {
+    line-height: 1.25;
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Entrances
+ *
+ * `about-js` is added to <html> by an inline script at the top of the page: with scripts off
+ * nothing is ever hidden. Visitors who ask for reduced motion get every block in its final state.
+ * ------------------------------------------------------------------ */
+@keyframes about-show {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-unhide {
+  to {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Static blocks, revealed by src/scripts/reveal.ts when they enter the viewport */
+  html.about-js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--reveal-order, 0) * 90ms);
+  }
+
+  html.about-js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* The script marks <html> when it starts. If it never does, everything shows after 4s. */
+  html.about-js:not(.reveal-on) [data-reveal] {
+    animation: about-show 0s linear 4s forwards;
+  }
+
+  /*
+   * Islands: the animated pieces stay hidden until GSAP takes them over (the island then sets
+   * `data-ready` on its section). Same safety net: visible after 4s if the island never starts.
+   */
+  html.about-js [data-about-island]:not([data-ready]) [data-anim] {
+    visibility: hidden;
+    animation: about-unhide 0s linear 4s forwards;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Titles split into words (islands)
+ * ------------------------------------------------------------------ */
+
+/* Clipping mask of a word. The padding keeps accents, descenders and tight tracking inside it. */
+.about-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0.06em 0.16em;
+  margin: -0.1em -0.06em -0.16em;
+}
+
+.about-word {
+  display: inline-block;
+}
+
+/* ------------------------------------------------------------------
+ * Values: four pillars that rise from left to right (brand pattern)
+ * ------------------------------------------------------------------ */
+.about-pillar {
+  --about-pillar-slant: 18px;
+
+  padding: calc(var(--about-pillar-slant) + 26px) 26px 28px;
+  background-color: rgb(153 183 252 / 0.1);
+  clip-path: polygon(0 var(--about-pillar-slant), 100% 0, 100% 100%, 0 100%);
+  transition: background-color 0.45s ease;
+}
+
+.about-pillar[data-active='true'] {
+  background-color: #055ED3;
+}
+
+@media (min-width: 1024px) {
+  /* One continuous rising line: each pillar starts where the previous one ended (gap included) */
+  .about-pillar {
+    --about-pillar-slant: 40px;
+
+    min-height: calc(348px + var(--about-pillar-index, 0) * 43px);
+    padding: calc(var(--about-pillar-slant) + 28px) 28px 32px;
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Frequent questions: the answer opens and closes smoothly where the browser supports it
+ * ------------------------------------------------------------------ */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    .about-faq {
+      interpolate-size: allow-keywords;
+    }
+
+    .about-faq::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition:
+        block-size 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        content-visibility 0.45s allow-discrete;
+    }
+
+    .about-faq[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+ * Closing band: the brand arc drifts with the scroll where the browser supports it
+ * ------------------------------------------------------------------ */
+@keyframes about-drift {
+  from {
+    translate: 0 14%;
+  }
+
+  to {
+    translate: 0 -14%;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .about-drift {
+      /* The duration is required by some browsers and ignored: the scroll drives the animation */
+      animation: about-drift 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}

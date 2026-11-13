@@ -1,0 +1,74 @@
+---
+import { MessageSquare, X } from 'lucide-react';
+import { site } from '../../data/site';
+---
+
+<aside class="fixed bottom-6 right-6 z-40 flex items-center gap-3" aria-label="Atendimento pelo WhatsApp" data-floating-whatsapp>
+  <div
+    hidden
+    data-whatsapp-tip
+    class="hidden sm:flex items-center gap-2 p-3 bg-white text-[#021A39] rounded-2xl shadow-xl border border-slate-200 text-xs font-semibold animate-fadeIn max-w-[220px]"
+  >
+    <span>Precisa de ajuda com o financeiro da sua empresa?</span>
+    <button
+      type="button"
+      data-whatsapp-tip-close
+      class="p-1 text-slate-400 hover:text-slate-600 rounded-full"
+      aria-label="Fechar dica"
+    >
+      <X className="w-3.5 h-3.5" />
+    </button>
+  </div>
+
+  <a
+    href={site.whatsapp}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="w-14 h-14 rounded-full bg-[#055ED3] hover:bg-[#021A39] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group border-2 border-white/20"
+    aria-label="Fale conosco no WhatsApp"
+  >
+    <MessageSquare className="w-6 h-6 text-white group-hover:scale-105 transition-transform" />
+  </a>
+</aside>
+
+<script>
+  /* The tip shows 3.5 s after the first page of a visit and, once dismissed, stays dismissed for the session. */
+  const STORAGE_KEY = 'pilaris:whatsapp-tip';
+  const tip = document.querySelector<HTMLElement>('[data-whatsapp-tip]');
+
+  const read = () => {
+    try {
+      return sessionStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  };
+
+  const write = (value: string) => {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, value);
+    } catch {
+      /* storage unavailable: the tip simply follows the default timing */
+    }
+  };
+
+  if (tip) {
+    const state = read();
+
+    const show = () => {
+      tip.hidden = false;
+      write('shown');
+    };
+
+    if (state === 'shown') {
+      show();
+    } else if (state !== 'closed') {
+      window.setTimeout(show, 3500);
+    }
+
+    tip.querySelector('[data-whatsapp-tip-close]')?.addEventListener('click', () => {
+      tip.hidden = true;
+      write('closed');
+    });
+  }
+</script>

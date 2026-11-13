@@ -1,0 +1,31 @@
+---
+import { ChevronRight } from 'lucide-react';
+
+interface Props {
+  /** Label of the current page (last item of the trail). */
+  current: string;
+  /** Optional intermediate item, e.g. the blog index on an article. */
+  parent?: { label: string; href: string };
+  class?: string;
+}
+
+const {
+  current,
+  parent,
+  class: className = 'flex items-center justify-center gap-2 text-xs font-mono text-[#99B7FC] mb-4 uppercase'
+} = Astro.props;
+---
+
+<nav aria-label="Você está aqui" class={className}>
+  <a href="/" class="hover:text-white transition-colors">Pilaris</a>
+  <ChevronRight className="w-3.5 h-3.5" />
+  {
+    parent && (
+      <>
+        <a href={parent.href} class="hover:text-white transition-colors">{parent.label}</a>
+        <ChevronRight className="w-3.5 h-3.5" />
+      </>
+    )
+  }
+  <span class="text-white font-bold" aria-current="page">{current}</span>
+</nav>

@@ -1,0 +1,198 @@
+---
+import { ArrowLeft, Calendar, CheckCircle2, Clock, MessageSquare, Share2 } from 'lucide-react';
+import type { BlogPost } from '../data/blog';
+import { site } from '../data/site';
+import { blogPostingSchema, breadcrumbSchema } from '../lib/schema';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+
+const url = `${site.url}/blog/${post.slug}`;
+// The date is written as YYYY-MM-DD: format it without a time zone conversion
+const [year, month, day] = post.date.split('-');
+const formattedDate = `${day}/${month}/${year}`;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Pilaris', url: site.url },
+    { name: 'Blog', url: `${site.url}/blog` },
+    { name: post.title, url }
+  ]),
+  blogPostingSchema(post)
+];
+---
+
+<BaseLayout
+  title={`${post.title} | ${site.name}`}
+  description={post.description}
+  type="article"
+  publishedTime={post.date}
+  schemas={schemas}
+>
+  <div class="animate-fadeIn">
+    {/* Full Editorial Reader */}
+    <article class="pt-[140px] pb-24 bg-[#FAFDFF] text-[#021A39]">
+      {/* Post Header (Dark Section) */}
+      <header class="bg-[#021A39] text-white py-16 sm:py-24 relative overflow-hidden -mt-[140px] pt-[150px] mb-12">
+        <img
+          src="/brand/pattern-waves.svg"
+          alt=""
+          aria-hidden="true"
+          class="absolute -right-20 -top-20 w-[45vw] opacity-10 pointer-events-none"
+        />
+
+        <div class="max-w-[860px] mx-auto px-4 sm:px-6 relative z-10 space-y-6">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 text-xs font-mono-code text-[#99B7FC] hover:text-white transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Voltar para todos os artigos</span>
+          </a>
+
+          <div>
+            <span class="font-mono-code text-xs uppercase text-[#99B7FC] tracking-wider px-3 py-1 rounded-full bg-white/10 border border-white/15 inline-block mb-4">
+              {post.category}
+            </span>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-[-0.04em] leading-[1.05] text-white mb-6">
+              {post.title}
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl">
+              {post.description}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-white/10 text-xs font-mono-code text-slate-400">
+            <span class="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#99B7FC]" />
+              <time datetime={post.date}>{formattedDate}</time>
+            </span>
+            <span class="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#99B7FC]" />
+              {post.readTime}
+            </span>
+            <button
+              type="button"
+              data-share
+              data-share-title={post.title}
+              data-share-text={post.description}
+              class="flex items-center gap-1.5 text-[#99B7FC] hover:text-white transition-colors ml-auto cursor-pointer"
+            >
+              <Share2 className="w-4 h-4" />
+              <span data-share-label aria-live="polite">Compartilhar</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Post Content Body */}
+      <div class="max-w-[800px] mx-auto px-4 sm:px-6 space-y-8">
+        {/* Key Takeaways Box */}
+        {
+          post.takeaways && post.takeaways.length > 0 && (
+            <div class="p-6 sm:p-8 rounded-3xl bg-[#E9EBFF] border border-[#99B7FC]/40 space-y-4">
+              <h2 class="font-mono-code text-xs uppercase font-bold text-[#055ED3] tracking-wider">
+                Pontos-chave deste artigo:
+              </h2>
+              <ul class="space-y-2.5">
+                {post.takeaways.map((point) => (
+                  <li class="flex items-start gap-3 text-sm sm:text-base text-slate-800 font-medium">
+                    <CheckCircle2 className="w-5 h-5 text-[#055ED3] flex-shrink-0 mt-0.5" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {/* Paragraphs */}
+        <div class="space-y-6 text-lg sm:text-xl text-slate-700 leading-relaxed font-normal">
+          {post.content.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        {/* In-article CTA */}
+        <div class="p-8 sm:p-10 rounded-[32px] bg-[#021A39] text-white space-y-4 shadow-xl">
+          <span class="font-mono-code text-xs uppercase text-[#99B7FC] font-bold">
+            Assessoria Financeira Especializada
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            Quer aplicar essas melhorias práticas na sua empresa?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300">
+            A equipe da Pilaris BPO pode analisar gratuitamente seus números e propor uma esteira financeira sem atritos.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#055ED3] hover:bg-white hover:text-[#021A39] text-white font-bold text-sm transition-all"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Falar com um especialista</span>
+            </a>
+            <a
+              href="/contato"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/30 hover:border-white text-white font-bold text-sm transition-all"
+            >
+              <span>Pedir proposta</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Navigation back */}
+        <div class="pt-8 border-t border-slate-200 flex justify-between items-center">
+          <a href="/blog" class="inline-flex items-center gap-2 text-sm font-bold text-[#055ED3] hover:underline">
+            <ArrowLeft className="w-4 h-4" />
+            <span>Ver outros artigos</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<script>
+  /* Share button: native share sheet when available, otherwise the link goes to the clipboard. */
+  document.querySelectorAll<HTMLButtonElement>('[data-share]').forEach((button) => {
+    const label = button.querySelector<HTMLElement>('[data-share-label]');
+    const initialLabel = label?.textContent ?? '';
+    let timer: number | undefined;
+
+    const confirm = (text: string) => {
+      if (!label) return;
+      label.textContent = text;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        label.textContent = initialLabel;
+      }, 2500);
+    };
+
+    button.addEventListener('click', async () => {
+      const url = window.location.href;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: button.dataset.shareTitle, text: button.dataset.shareText, url });
+        } catch {
+          /* the visitor closed the share sheet */
+        }
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(url);
+        confirm('Link copiado!');
+      } catch {
+        window.prompt('Copie o link do artigo:', url);
+      }
+    });
+  });
+</script>

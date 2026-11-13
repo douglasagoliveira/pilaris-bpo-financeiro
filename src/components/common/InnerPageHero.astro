@@ -1,0 +1,81 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  desktopImagePosition?: string;
+  mobileImagePosition?: 'left' | 'center' | 'right';
+}
+
+const {
+  title,
+  description,
+  image = '/images/hero-dashboard.jpg',
+  desktopImagePosition = 'center right',
+  mobileImagePosition = 'center'
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'relative z-[9] min-h-[430px] lg:min-h-[500px] rounded-b-[20px] overflow-hidden flex items-center text-white',
+    {
+      'inner-page-hero-mobile-left': mobileImagePosition === 'left',
+      'inner-page-hero-mobile-right': mobileImagePosition === 'right'
+    }
+  ]}
+  style={{
+    padding: '112px 0 56px',
+    backgroundColor: '#0F172A',
+    backgroundImage: `url('${image}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: desktopImagePosition,
+    backgroundRepeat: 'no-repeat'
+  }}
+>
+  <div
+    class="absolute inset-0 pointer-events-none z-0"
+    style={{
+      background:
+        'linear-gradient(90deg, rgba(15,23,42,0.97) 0%, rgba(15,23,42,0.93) 40%, rgba(15,23,42,0.72) 66%, rgba(15,23,42,0.3) 100%)'
+    }}
+  />
+  <div
+    class="absolute inset-0 pointer-events-none z-0 lg:hidden"
+    style={{
+      background:
+        'linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.82) 62%, rgba(15,23,42,0.58) 100%)'
+    }}
+  />
+
+  <div class="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="max-w-[700px] text-left">
+      <p class="text-white/75 text-[13px] font-mono uppercase leading-none">
+        <span class="inline-block text-white rounded-[20px] h-[23px] leading-[23px] px-[10px] mr-[10px] bg-[#3B82F6]">
+          Pilaris BPO
+        </span>
+        Clareza, Controle, Crescimento.
+      </p>
+
+      <h1 class="text-white mt-6 font-medium text-[42px] sm:text-[54px] lg:text-[64px] leading-[1.1] tracking-[-2px]">
+        {title}
+      </h1>
+
+      <p class="text-white/75 text-base sm:text-lg leading-[150%] mt-5 max-w-[620px]">
+        {description}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    .inner-page-hero-mobile-left {
+      background-position: left center !important;
+    }
+
+    .inner-page-hero-mobile-right {
+      background-position: right center !important;
+    }
+  }
+</style>

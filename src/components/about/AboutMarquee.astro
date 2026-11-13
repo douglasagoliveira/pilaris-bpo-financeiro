@@ -1,0 +1,28 @@
+---
+import { PillarsMark } from './AboutParts';
+
+interface Props {
+  /** Words that run across the band. */
+  words: string[];
+}
+
+const { words } = Astro.props;
+---
+
+{/* Decorative band: the words are already on the page, so assistive technology skips it */}
+<div class="overflow-hidden bg-[#055ED3] py-4 text-[#FAFDFD]" aria-hidden="true">
+  <div class="animate-peo-marquee flex items-center whitespace-nowrap">
+    {[...Array(6)].map(() => (
+      <div class="flex items-center gap-10 sm:gap-14 px-5 sm:px-7">
+        {words.map((word) => (
+          <div class="flex items-center gap-6 sm:gap-8">
+            <PillarsMark className="h-6 w-auto sm:h-7" />
+            <span class="text-2xl font-medium uppercase tracking-tight select-none">
+              {word}
+            </span>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

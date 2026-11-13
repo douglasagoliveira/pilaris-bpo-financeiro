@@ -1,0 +1,152 @@
+---
+import { ArrowUpRight, Menu, MessageSquare, X } from 'lucide-react';
+import { navigation } from '../../data/navigation';
+import { site } from '../../data/site';
+import { routePath } from '../../lib/paths';
+import ScrollProgress from './ScrollProgress.astro';
+
+interface Props {
+  /** Pages that open with a dark hero start with the translucent header; the others start solid. */
+  darkHero?: boolean;
+}
+
+const { darkHero = true } = Astro.props;
+
+const currentPath = routePath(Astro.url.pathname);
+const initialTheme = darkHero ? 'transparent' : 'scrolled';
+---
+
+<header
+  class="site-header group/header fixed top-0 left-0 right-0 z-50"
+  data-site-header
+  data-dark-hero={darkHero ? 'true' : 'false'}
+  data-theme={initialTheme}
+>
+  {/* Scroll progress bar with glow and percentage */}
+  <ScrollProgress />
+
+  <div
+    class="transition-all duration-300 border-b backdrop-blur-md bg-[#021A39]/75 text-white border-white/10 group-data-[theme=scrolled]/header:bg-[#FAFDFF]/95 group-data-[theme=scrolled]/header:text-[#021A39] group-data-[theme=scrolled]/header:border-[#021A39]/10 group-data-[theme=scrolled]/header:shadow-sm"
+  >
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-[76px] flex items-center justify-between">
+      {/* Logo */}
+      <a href="/" class="flex items-center gap-3 group focus:outline-none" aria-label="Pilaris BPO Página Inicial">
+        <img
+          src="/brand/logo-pilaris-bpo-branco.png"
+          alt="Pilaris BPO"
+          class="h-9 sm:h-11 w-auto transition-transform duration-300 group-hover:scale-[1.02] group-data-[theme=scrolled]/header:hidden"
+        />
+        <img
+          src="/brand/logo-pilaris-bpo-azul.png"
+          alt="Pilaris BPO"
+          class="h-9 sm:h-11 w-auto transition-transform duration-300 group-hover:scale-[1.02] hidden group-data-[theme=scrolled]/header:block"
+        />
+      </a>
+
+      {/* Desktop Nav with links to all pages */}
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-7" aria-label="Menu Principal">
+        {navigation.map((item) => {
+          const isActive = currentPath === item.href;
+
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'relative text-[14px] font-semibold tracking-tight transition-colors duration-200 py-1 flex items-center gap-1.5',
+                isActive
+                  ? 'text-[#055ED3] font-bold'
+                  : 'text-white/85 hover:text-white group-data-[theme=scrolled]/header:text-[#021A39]/80 group-data-[theme=scrolled]/header:hover:text-[#055ED3]'
+              ]}
+            >
+              {item.label}
+              {item.badge && (
+                <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded-full bg-[#055ED3] text-white uppercase font-normal tracking-wider">
+                  {item.badge}
+                </span>
+              )}
+              {isActive && (
+                <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#055ED3] rounded-full"></span>
+              )}
+            </a>
+          );
+        })}
+      </nav>
+
+      {/* CTA & Mobile Toggle */}
+      <div class="flex items-center gap-3">
+        <a
+          href={site.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#055ED3] hover:bg-[#0F172A] text-white text-[13px] font-bold tracking-tight shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group"
+        >
+          <MessageSquare className="w-4 h-4 text-blue-200 group-hover:text-white transition-colors" />
+          <span>Falar com a Pilaris</span>
+          <ArrowUpRight className="w-4 h-4 opacity-75 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+        </a>
+
+        {/* Mobile menu button (colors follow the header theme); the panel is MobileMenu.astro */}
+        <button
+          type="button"
+          class="lg:hidden p-2.5 rounded-full border transition-colors border-white/20 text-white hover:bg-white/10 group-data-[theme=scrolled]/header:border-[#021A39]/20 group-data-[theme=scrolled]/header:text-[#021A39] group-data-[theme=scrolled]/header:hover:bg-slate-100"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-mobile-menu-toggle
+        >
+          <Menu className="w-5 h-5" data-menu-icon="open" />
+          <X className="w-5 h-5 hidden" data-menu-icon="close" />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  /* Translucent over a dark hero, solid once the page scrolls (or always, on light pages). */
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+
+  if (header) {
+    const hasDarkHero = header.dataset.darkHero === 'true';
+
+    const updateTheme = () => {
+      header.dataset.theme = window.scrollY > 20 || !hasDarkHero ? 'scrolled' : 'transparent';
+    };
+
+    updateTheme();
+    window.addEventListener('scroll', updateTheme, { passive: true });
+  }
+
+  /* Mobile menu: the button shows or hides the full-screen panel. */
+  const menuToggle = document.querySelector<HTMLButtonElement>('[data-mobile-menu-toggle]');
+  const menuPanel = document.getElementById('mobile-menu');
+
+  if (menuToggle && menuPanel) {
+    const desktop = window.matchMedia('(min-width: 1024px)');
+
+    const setMenuOpen = (open: boolean) => {
+      menuPanel.hidden = !open;
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      menuToggle.querySelector('[data-menu-icon="open"]')?.classList.toggle('hidden', open);
+      menuToggle.querySelector('[data-menu-icon="close"]')?.classList.toggle('hidden', !open);
+      // The page behind the panel does not scroll while the menu is open
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    menuToggle.addEventListener('click', () => setMenuOpen(menuPanel.hidden));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menuPanel.hidden) {
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+
+    // The panel only exists below the `lg` breakpoint: close it if the window grows past it
+    desktop.addEventListener('change', () => {
+      if (desktop.matches && !menuPanel.hidden) setMenuOpen(false);
+    });
+  }
+</script>

@@ -1,0 +1,83 @@
+---
+import { ChevronDown } from 'lucide-react';
+
+
+const steps = [
+  {
+    num: '01.',
+    title: 'Entender o seu negócio',
+    desc: 'Começamos com uma conversa estratégica para entender como funciona o financeiro da sua empresa, identificar gargalos imediatos e mapear o que você precisa.'
+  },
+  {
+    num: '02.',
+    title: 'Estruturar a operação',
+    desc: 'Fazemos o diagnóstico operacional e organizamos processos, rotinas, prazos e controles para reduzir falhas e eliminar qualquer risco de multas.'
+  },
+  {
+    num: '03.',
+    title: 'Entregar clareza',
+    desc: 'Acompanhamos a rotina diária e entregamos relatórios e indicadores preditivos para você tomar decisões com dados concretos e total segurança.'
+  }
+];
+---
+
+<section class="py-24 lg:py-32 bg-white relative overflow-hidden border-b border-slate-100">
+  <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      {/* Left Column: Image */}
+      <div class="lg:col-span-6 relative">
+        <div class="rounded-3xl overflow-hidden shadow-lg border border-slate-100 relative">
+          <img
+            src="/images/leandro-leandra-pilaris-bpo-financeiro-servicos.jpg"
+            alt="Leandro e Leandra Costa em reunião financeira"
+            class="w-full h-auto aspect-[4/3] object-cover object-[center_18%]"
+          />
+        </div>
+      </div>
+
+      {/* Right Column: Steps Accordion (Peo style) */}
+      <div class="lg:col-span-6 space-y-8">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-normal uppercase tracking-wider text-[#3B82F6] mb-3">
+            <img src="/brand/peo-star.svg" alt="" class="w-3.5 h-3.5" />
+            <span>COMO TRABALHAMOS</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-5xl font-semibold tracking-[-0.035em] text-[#0F172A] leading-[1.15]">
+            Do primeiro contato à <br />
+            <span class="text-[#3B82F6]">rotina organizada.</span>
+          </h2>
+        </div>
+
+        {/* Accordion List: native <details>, one open at a time (shared `name`) */}
+        <div class="space-y-4">
+          {steps.map((step, idx) => (
+            <details
+              name="como-trabalhamos"
+              open={idx === 0}
+              class="group rounded-2xl border transition-all duration-300 overflow-hidden bg-white border-slate-200 not-open:hover:border-slate-300 open:bg-[#F2F5F7] open:border-[#3B82F6]/40 open:shadow-sm"
+            >
+              <summary class="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center gap-4">
+                  <span class="font-mono text-base font-bold text-slate-400 group-open:text-[#3B82F6]">
+                    {step.num}
+                  </span>
+                  <h3 class="text-lg sm:text-xl font-semibold text-[#0F172A]">
+                    {step.title}
+                  </h3>
+                </span>
+                <span class="w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 bg-slate-100 text-slate-500 group-open:rotate-180 group-open:bg-[#055ED3] group-open:text-white">
+                  <ChevronDown className="w-4 h-4" />
+                </span>
+              </summary>
+
+              <div class="px-6 pb-6 pt-1 text-sm text-[#3D4857] leading-relaxed border-t border-slate-200/60 mt-1">
+                {step.desc}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

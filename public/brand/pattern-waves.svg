@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="none">
+  <defs>
+    <pattern id="pilaris-pattern" width="60" height="40" patternUnits="userSpaceOnUse">
+      <!-- Crescent arc shape -->
+      <path d="M 10,12 C 18,12 28,16 34,22 C 28,26 18,30 10,30 C 18,26 24,24 24,21 C 24,18 18,16 10,12 Z" fill="#055ED3" opacity="0.6" />
+      <path d="M 40,32 C 48,32 58,36 64,42 C 58,46 48,50 40,50 C 48,46 54,44 54,41 C 54,38 48,36 40,32 Z" fill="#055ED3" opacity="0.4" />
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#pilaris-pattern)" />
+</svg>

@@ -1,0 +1,28 @@
+---
+const marqueeItems = [
+  'BPO Financeiro',
+  'Gestão Fiscal',
+  'Contas a Pagar',
+  'Contas a Receber',
+  'Fluxo de Caixa',
+  'Emissão de Notas',
+  'Relatórios Gerenciais & DRE',
+  'Clareza • Controle • Crescimento'
+];
+---
+
+<div
+  class="h-[38px] overflow-hidden bg-[#055ED3] text-white flex items-center border-b border-blue-400/20 z-50 relative"
+  aria-label="Serviços Pilaris"
+>
+  <div class="animate-marquee whitespace-nowrap py-1">
+    {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item) => (
+      <span
+        class="inline-flex items-center px-6 font-mono-code text-[11px] font-medium uppercase tracking-wider text-blue-100 hover:text-white transition-colors"
+      >
+        {item}
+        <span class="ml-6 text-blue-300/60 font-bold">•</span>
+      </span>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,50 @@
+---
+import PeoButton from '../components/peo/PeoButton.astro';
+import { navigation } from '../data/navigation';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = `Página não encontrada | ${site.name}`;
+const description = 'O endereço acessado não existe ou foi movido. Volte para a página inicial da Pilaris BPO Financeiro.';
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <div class="animate-fadeIn pt-[114px]">
+    <section class="bg-[#0F172A] text-white py-24 lg:py-32 relative overflow-hidden text-center">
+      <img
+        src="/brand/pattern-waves.svg"
+        alt=""
+        aria-hidden="true"
+        class="absolute -right-20 -top-20 w-[45vw] opacity-10 pointer-events-none"
+      />
+
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10">
+        <p class="text-xs font-mono text-[#99B7FC] mb-4 uppercase">Erro 404</p>
+
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-[-0.04em] text-white mb-4">
+          Página não encontrada
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto">
+          O endereço acessado não existe ou foi movido. Use um dos caminhos abaixo para continuar.
+        </p>
+
+        <div class="mt-10 flex justify-center">
+          <PeoButton label="Voltar para a página inicial" href="/" />
+        </div>
+
+        <nav aria-label="Páginas do site" class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-300">
+          {
+            navigation
+              .filter((item) => item.href !== '/')
+              .map((item) => (
+                <a href={item.href} class="hover:text-white underline underline-offset-4 transition-colors">
+                  {item.label}
+                </a>
+              ))
+          }
+          <a href="/blog" class="hover:text-white underline underline-offset-4 transition-colors">Blog</a>
+        </nav>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

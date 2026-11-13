@@ -1,0 +1,64 @@
+---
+import CoreActivitiesGlassCard from '../components/home/CoreActivitiesGlassCard.astro';
+import HeroHome from '../components/home/HeroHome';
+import PeoAboutCompany from '../components/peo/PeoAboutCompany.astro';
+import PeoButton from '../components/peo/PeoButton.astro';
+import PeoCtaNewsletter from '../components/peo/PeoCtaNewsletter.astro';
+import PeoExploreServices from '../components/peo/PeoExploreServices';
+import PeoLatestProjects from '../components/peo/PeoLatestProjects';
+import PeoMarqueeBand from '../components/peo/PeoMarqueeBand.astro';
+import PeoNewsSection from '../components/peo/PeoNewsSection.astro';
+import PeoReasonForChooseUs from '../components/peo/PeoReasonForChooseUs';
+import PeoWorkingProcess from '../components/peo/PeoWorkingProcess.astro';
+import { site } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { homeSchemas } from '../lib/schema';
+---
+
+<BaseLayout title={site.title} description={site.description} schemas={homeSchemas}>
+  <div class="animate-fadeIn">
+    {/* Dobra 01: Hero no formato Peo, com a copy da Pilaris */}
+    <HeroHome client:load>
+      <PeoButton label="Falar com a Pilaris" href={site.whatsapp} target="_blank" />
+    </HeroHome>
+
+    {/* Faixa de vidro com as 4 principais atividades (logo após a hero) */}
+    <div class="bg-white relative z-20">
+      <CoreActivitiesGlassCard />
+    </div>
+
+    {/* Dobra 02: Por que escolher a Pilaris */}
+    <PeoReasonForChooseUs client:idle />
+
+    {/* Dobra 03: Sobre a empresa */}
+    <PeoAboutCompany />
+
+    {/* Dobra 04: Nossas soluções */}
+    <PeoExploreServices client:visible={{ rootMargin: '800px' }} />
+
+    {/* Dobra 05: Nossos pilares */}
+    <PeoLatestProjects client:idle />
+
+    {/* Dobra 06: Como trabalhamos */}
+    <PeoWorkingProcess />
+
+    {/* Dobra 07: Faixa em movimento */}
+    <PeoMarqueeBand />
+
+    {/* Dobra 08: Blog / Conteúdo */}
+    <PeoNewsSection />
+
+    {/* Dobra 09: Pré-footer CTA Newsletter */}
+    <PeoCtaNewsletter />
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  /* The previous single-page app also accepted the route in the hash (/#contato, /#/blog/slug). */
+  (function () {
+    var route = window.location.hash.replace(/^#\/?/, '').replace(/\/+$/, '');
+    if (/^(contato|conheca-a-pilaris|sobre|nossas-solucoes|servicos|diagnostico|blog(\/[a-z0-9-]+)?)$/.test(route)) {
+      window.location.replace('/' + route);
+    }
+  })();
+</script>

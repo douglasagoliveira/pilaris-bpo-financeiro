@@ -1,0 +1,29 @@
+---
+import { ArrowUpRight } from 'lucide-react';
+
+interface Props {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'dark';
+  target?: string;
+  class?: string;
+}
+
+const { label, href, variant = 'primary', target, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  target={target}
+  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+  class:list={['peo-btn', variant === 'dark' && 'peo-btn-dark', className]}
+>
+  <div class="btn_inner">
+    <div class="btn_icon">
+      <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+    </div>
+    <div class="btn_text">
+      <span>{label}</span>
+    </div>
+  </div>
+</a>
