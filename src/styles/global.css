@@ -262,3 +262,207 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Notebook layout: 14–15 inch displays commonly expose a 1024–1279px CSS viewport.
+ * Keep the established mobile and wide-desktop layouts untouched and give this
+ * intermediate range its own density so each visual block fits the viewport.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .site-header > div > div {
+    height: 68px;
+  }
+
+  .site-header nav {
+    gap: 1.25rem;
+  }
+
+  .site-header .max-w-\[1200px\] {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .home-hero {
+    min-height: min(720px, 100svh) !important;
+    padding: 104px 0 36px !important;
+  }
+
+  .home-hero .grid {
+    gap: 2rem;
+  }
+
+  .home-hero h1 {
+    max-width: 560px;
+    font-size: 54px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -1.5px;
+  }
+
+  .home-hero [data-hero-up] {
+    margin-top: 20px;
+  }
+
+  .home-hero .hero-info {
+    margin-top: 28px !important;
+  }
+
+  .inner-page-hero {
+    min-height: 430px !important;
+    padding-top: 96px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .inner-page-hero h1 {
+    max-width: 620px;
+    margin-top: 1.25rem;
+    font-size: 54px !important;
+    line-height: 1.06 !important;
+    letter-spacing: -1.5px;
+  }
+
+  .inner-page-hero > div.relative {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .home-solutions-section,
+  .home-why-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .home-solutions-section .relative.text-center {
+    margin-bottom: 40px;
+  }
+
+  .home-solutions-section .relative.text-center h2,
+  .home-why-section h2 {
+    font-size: 40px !important;
+  }
+
+  .home-solutions-section .advance-wrap {
+    gap: 1rem;
+  }
+
+  .home-solutions-section .service-card-item {
+    min-height: 280px;
+    padding: 1.5rem;
+  }
+
+  .home-solutions-section .service-card-item > div > div:first-child {
+    width: 58px;
+    height: 56px;
+    margin-bottom: 1.25rem;
+  }
+
+  .home-solutions-section .service-card-item h3 {
+    font-size: 19px;
+  }
+
+  .home-why-section .grid {
+    gap: 1rem;
+  }
+
+  .home-why-section .grid > a {
+    padding: 1.5rem;
+  }
+
+  .home-why-section .grid > a h3 {
+    font-size: 20px;
+  }
+
+  .tp-project-5-2-area {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+
+  .tp-project-5-2-area .des-portfolio-wrap {
+    gap: 2.5rem;
+  }
+
+  .tp-project-5-2-area .project-box-items > div {
+    min-height: 420px;
+  }
+
+  .tp-project-5-2-area .project-box-items > div > div:first-child {
+    padding: 2.5rem;
+  }
+
+  .tp-project-5-2-area .project-box-items h3 {
+    font-size: 36px;
+  }
+
+  .solutions-list-section,
+  .solutions-process-section,
+  .solutions-audience-section,
+  .solutions-form-section,
+  .contact-info-section,
+  .contact-form-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .solutions-grid {
+    gap: 1.25rem;
+  }
+
+  .solutions-grid > div {
+    padding: 1.5rem;
+  }
+
+  .solutions-grid h2 {
+    font-size: 20px;
+  }
+
+  .solutions-process-section .grid > article,
+  .contact-info-section .grid > div {
+    padding: 1.5rem;
+  }
+
+  .solutions-process-section .grid,
+  .contact-info-section .grid {
+    gap: 1rem;
+  }
+
+  .solutions-audience-section .grid > article {
+    padding: 1.5rem;
+  }
+
+  .solutions-audience-section .grid > article h3 {
+    font-size: 26px;
+  }
+
+  .solutions-form-section form,
+  .contact-form-section form {
+    gap: 1rem;
+  }
+
+  .about-intro,
+  .about-purpose,
+  .about-care {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .about-intro h2,
+  .about-purpose h2,
+  .about-care h2 {
+    font-size: 48px !important;
+  }
+
+  .about-intro .lg\:mt-16 {
+    margin-top: 2rem;
+  }
+
+  .about-purpose .mt-16 {
+    margin-top: 3rem;
+  }
+
+  .about-care [data-front] {
+    padding: 2rem 2rem 8rem;
+  }
+
+  .about-care [data-front] h3 {
+    font-size: 26px;
+  }
+}

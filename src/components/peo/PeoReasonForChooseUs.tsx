@@ -54,7 +54,7 @@ export default function PeoReasonForChooseUs() {
     // Responsive GSAP ScrollTrigger matchMedia
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 992px)", () => {
+    mm.add("(min-width: 992px) and (max-width: 1023px), (min-width: 1280px)", () => {
       // The cards start in the tilted fanned-out deck position from the reference screenshot
       // and as you scroll down through the section, they smoothly rotate and translate into the upright vertical 4-column row!
       const tl = gsap.timeline({
@@ -105,7 +105,7 @@ export default function PeoReasonForChooseUs() {
   return (
     <section
       ref={containerRef}
-      className="py-24 lg:py-32 bg-white relative overflow-hidden border-b border-slate-100"
+      className="home-solutions-section py-24 lg:py-32 bg-white relative overflow-hidden border-b border-slate-100"
     >
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
         {/* Section Header with Decorative Blue Dot (as in Peo screenshot) */}

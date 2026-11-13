@@ -171,7 +171,7 @@ export default function AboutPurpose({ content, children }: AboutPurposeProps) {
     <section
       ref={rootRef}
       data-about-island
-      className="relative bg-[#021A39] py-24 text-[#FAFDFD] lg:py-32"
+      className="about-purpose relative bg-[#021A39] py-24 text-[#FAFDFD] lg:py-32"
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         {/* Title on the left, subtitle on the right */}

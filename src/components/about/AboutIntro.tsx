@@ -185,7 +185,7 @@ export default function AboutIntro({ content, cta, video }: AboutIntroProps) {
     <section
       ref={rootRef}
       data-about-island
-      className="relative overflow-hidden bg-[#FAFDFD] pt-20 pb-16 sm:pt-24 lg:pt-32 lg:pb-24"
+      className="about-intro relative overflow-hidden bg-[#FAFDFD] pt-20 pb-16 sm:pt-24 lg:pt-32 lg:pb-24"
     >
       <div className="relative mx-auto max-w-[1200px] px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 lg:grid-cols-12 lg:gap-y-14">

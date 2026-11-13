@@ -25,7 +25,7 @@ export default function PeoExploreServices() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-[#F2F5F7] relative overflow-hidden border-b border-slate-200/80">
+    <section className="home-why-section py-24 lg:py-32 bg-[#F2F5F7] relative overflow-hidden border-b border-slate-200/80">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
         {/* Header with Title on Left */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 lg:mb-16">

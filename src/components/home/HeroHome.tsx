@@ -94,7 +94,7 @@ export default function HeroHome({ children }: HeroHomeProps) {
 
   return (
     <section
-      className="hero-section hero-1 relative z-[9] rounded-b-[20px] overflow-hidden min-h-screen flex flex-col justify-center text-white"
+      className="hero-section home-hero hero-1 relative z-[9] rounded-b-[20px] overflow-hidden min-h-screen flex flex-col justify-center text-white"
       style={{
         padding: "130px 0 60px",
         backgroundColor: "#0F172A",

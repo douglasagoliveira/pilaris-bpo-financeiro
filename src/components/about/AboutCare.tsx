@@ -146,7 +146,7 @@ export default function AboutCare({ content }: AboutCareProps) {
     <section
       ref={rootRef}
       data-about-island
-      className="overflow-hidden bg-[#FAFDFD] py-24 lg:py-32"
+      className="about-care overflow-hidden bg-[#FAFDFD] py-24 lg:py-32"
     >
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-x-10 gap-y-14 px-4 sm:px-6 lg:grid-cols-12">
         {/* Title */}
