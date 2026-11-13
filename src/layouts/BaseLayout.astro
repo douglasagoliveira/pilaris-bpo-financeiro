@@ -23,7 +23,8 @@ const { title, description, darkHero = true, ...seoProps } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0F172A" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* `?v=` forces browsers to drop the cached all-black favicon of older builds; bump when the SVG changes. */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name} — Blog`} href="/rss.xml" />
